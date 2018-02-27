@@ -12,15 +12,15 @@ def bisect(f,a,b,tol):
 	while (b-a)/2. > tol:
 		c = (a+b)/2.
 		fc = f(c)
-		if fc == 0:                 # c is a solution, done
+		if fc == 0:         # c is a solution, done
 			return c
 		if sign(fc)*sign(fa) < 0:   # a and c make the new interval
 			b, fb = c, fc
-		else:   	# c and b make the new interval
+		else:
 			a, fa = c, fc
 	return (a+b)/2.		# new midpoint is best estimate
 
 if __name__ == "__main__":
     from math import cos, tan
     f = lambda theta: 20.0 * tan(theta) - ((20.0**2 * 9.81) / (2 * (17.0**2) * cos(theta)**2)) - 3
-    print bisect(f,0,1,   1.0e-5)
+    print bisect(f,0,1, 1.0e-5)

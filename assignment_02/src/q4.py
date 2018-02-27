@@ -14,7 +14,6 @@ def secant_method(x, debug=True):
 
 def newton_method(x, debug=True):
     appr_list = [1., 0., 0., 0., 0., 0., 0., 0., 0.]
-
     for i in xrange(len(appr_list) - 1):
         num = appr_list[i]**2 + x
         den = appr_list[i] * 2
@@ -27,21 +26,6 @@ def newton_method(x, debug=True):
 
     return appr_list
 
-def correct_digs(list, accurate_num, debug=True):
-    correct_digits = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-    for i in xrange(len(list)):
-        correct_digits[i] = abs(list[i] - accurate_num)
-
-    if debug is True:
-        print "  Computed Value    Absolute Error"
-        for i in xrange(len(correct_digits)):
-            print "{0:.15f}".format(list[i]), "{0:.15f}".format(correct_digits[i])
-
-    return correct_digits
-
-import math
-new_res       = newton_method(1. / 9., False)
-sec_res       = secant_method(1. / 9., False)
-sec_corr_digs = correct_digs(sec_res, math.sqrt(1./9.))
-new_corr_digs = correct_digs(new_res, math.sqrt(1./9.))
+if __name__ == "__main__":
+    import math
+    new_res, sec_res = newton_method(1. / 9.), secant_method(1. / 9.)
