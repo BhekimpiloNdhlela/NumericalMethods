@@ -1,7 +1,6 @@
 #!/usr/bin/python
 def question_3a(f, debug=True):
     x = [.75, 0, 0, 0, 0, 0]
-
     for i in xrange(5):
         fx, dx = f(x[i])
         x[i+1] = x[i] - (fx / dx)
@@ -11,7 +10,6 @@ def question_3a(f, debug=True):
 
 def question_3b(g, debug=True):
     x = [.75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
     print len(x)
     for i in xrange(16):
         gx, dx = g(x[i])
