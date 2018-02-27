@@ -13,8 +13,7 @@ def newton_method_sys(fxy, j_0, j_1, debug=True):
         jx[1][0], jx[1][1] = j_1(xn[0][i], xn[1][i])
 
         fx[0][0], fx[1][0] = fxy(xn[0][i], xn[1][i])
-
-	    sx = linalg.solve(negative(jx), fx)
+        sx = linalg.solve(negative(jx), fx)
 
         xn[0][i + 1] = xn[0][i] + sx[0]
         xn[1][i + 1] = xn[1][i] + sx[1]
