@@ -11,8 +11,7 @@ def question_3a(f, debug=True):
 
 def question_3b(g, debug=True):
     x = [.75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    #0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    #0, 0, 0, 0]
+
     print len(x)
     for i in xrange(16):
         gx, dx = g(x[i])
@@ -20,7 +19,10 @@ def question_3b(g, debug=True):
         print x[i+1]
         if x[i + 1] is 1.0:
             break
-
+    """
+    osbevation: question_3b will never equal to one even if the number of
+    iterations is increased to 100. However, it converges to 1.0
+    """
 def question_3c():
     pass
 
