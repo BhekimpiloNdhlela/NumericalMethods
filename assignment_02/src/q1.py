@@ -1,20 +1,15 @@
-import math, sys
-
-def fpi(x, k):
-	g = lambda x : ((0.5 * x) + (1 / x))
-
-	for i in range(k):
-		print i, x, g(x)
-		x = g(x)
-	print 'The root is: ',
+def fpi(f, x, k):
+	for i in xrange(k):
+		x = f(x)
 	return x
 
-def main(argv):
-	if (len(sys.argv) != 3):
-		sys.exit('Usage: fixed_point.py <x> <k>')
-
-	print 'The root is:',
-	print fpi(float(sys.argv[1]),int(sys.argv[2]))
-
 if __name__ == "__main__":
-	main(sys.argv[1:])
+	x, k = 1, 1000
+
+	f = lambda x : (0.5 * x) + (1 / x)
+	g = lambda y : ((2. * x) / 3.) + (2. / (3. * x))
+	h = lambda z : (0.75 * x) + (0.5 * x)
+
+	print "F(x) = ", fpi(f, x, k)
+	print "G(x) = ", fpi(g, x, k)
+	print "H(x) = ", fpi(h, x, k)
