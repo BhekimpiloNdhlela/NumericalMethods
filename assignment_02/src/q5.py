@@ -14,11 +14,7 @@ def newton_method_sys(fxy, j0, j1, debug=True):
         xn[1][i + 1] = xn[1][i] + sx[1]
 
     if debug is True:
-        print "Fx = \n", fx, "\n"
-        print "jx = \n", jx, "\n"
-        print "xn = \n", xn, "\n"
-        print "jx[0][0]", jx[0][0], "jx[0][1]", jx[0][1]
-        print "jx[1][0]", jx[1][0], "jx[1][1]", jx[1][1]
+        print "xn = |", xn[0][-1], xn[1][-1], "|"
 
 if __name__ == "__main__":
     from numpy import (array, zeros, exp, linalg, negative)
