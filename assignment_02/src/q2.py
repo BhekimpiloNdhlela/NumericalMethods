@@ -1,3 +1,4 @@
+#!/usr/bin/python
 def sign(x):
 	if x < 0:	return -1
 	elif x > 0: return 1
@@ -10,11 +11,10 @@ def bisect(f,a,b,tol):
 		print 'f(a)f(b)<0 not satisfied!'
 		quit()
 	while (b-a)/2. > tol:
-		c = (a+b)/2.
-		fc = f(c)
+		c , fc= (a+b)/2.0, f(c)
 		if fc == 0:         		# c is a solution, done
 			return c
-		if sign(fc)*sign(fa) < 0:   # a and c make the new interval
+		elif sign(fc)*sign(fa) < 0:   # a and c make the new interval
 			b, fb = c, fc
 		else:
 			a, fa = c, fc

@@ -1,31 +1,41 @@
 #!/usr/bin/python
 def question_3a(f, debug=True):
-    x = [.75, 0, 0, 0, 0, 0]
+    x = [.9, 0, 0, 0, 0, 0]
     for i in xrange(5):
         fx, dx = f(x[i])
         x[i+1] = x[i] - (fx / dx)
-        print x[i+1]
-        if x[i + 1] is 1.0:
-            break
+
+    if debug is True:
+        print "Question 3 (a) results:"
+        for i in xrange(len(x)):
+            print i, "\t", x[i]
 
 def question_3b(g, debug=True):
-    x = [.75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    print len(x)
-    for i in xrange(16):
+    x = [.9, 0, 0, 0, 0, 0]
+    for i in xrange(5):
         gx, dx = g(x[i])
         x[i+1] = x[i] - (gx / dx)
-        print x[i+1]
-        if x[i + 1] is 1.0:
-            break
+    if debug is True:
+        print "Question 3 (b) results:"
+        for i in xrange(0 ,len(x)):
+            print i, "\t", x[i]
     """
     osbevation: question_3b will never equal to one even if the number of
-    iterations is increased to 100. However, it converges to 1.0
+    iterations is increased to 100. However, it approches 1.0 as the number
+    of itterations increase
     """
-def question_3c():
-    pass
 
-def question_3d():
-    pass
+def question_3d(g, debug=True):
+    x = [.9, 0, 0, 0, 0, 0]
+    # m == multiplicity of the function g(x)
+    m = 2
+    for i in xrange(5):
+        gx, dx = g(x[i])
+        x[i+1] = x[i] - (m * (gx / dx))
+    if debug is True:
+        print "Question 3 (d) results:"
+        for i in xrange(0 ,len(x)):
+            print i, "\t", x[i]
 
 if __name__ == "__main__":
     from numpy import exp
@@ -34,3 +44,5 @@ if __name__ == "__main__":
 
     question_3a(f)
     question_3b(g)
+    # no code required for 3 (c)
+    question_3d(g)
