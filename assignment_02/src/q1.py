@@ -14,5 +14,5 @@ if __name__ == "__main__":
     print "G(x) = ", fpi(g, x, k)
     print "H(x) = ", fpi(h, x, k)
 else:
-	import sys
-	sys.exit("please run as client...")
+    import sys
+    sys.exit("please run as client...")
