@@ -23,7 +23,7 @@ if __name__ == "__main__":
     import sys
     from math import (cos, tan)
     f = lambda theta: 20.0 * tan(theta) - ((20.0**2 * 9.81) / (2 * (17.0**2) * cos(theta)**2)) - 3
-    print bisect(f,0,1, 1.0e-5)
+    print "{:.15f}".format(bisect(f,0,1, 1.0e-5))
 else:
     import sys
     sys.exit("please run as client...")

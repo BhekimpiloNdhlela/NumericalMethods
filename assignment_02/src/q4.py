@@ -9,7 +9,7 @@ def secant_method(x, debug=True):
     if debug is True:
         print "The Secant Method, DEBUG_MODE: ON:"
         for i in xrange(len(appr_list)):
-            print i, "\t", "{0:.15f}".format(appr_list[i])
+            print i + 1, "\t", "{0:.15f}".format(appr_list[i])
     return appr_list
 
 def newton_method(x, debug=True):
@@ -22,7 +22,7 @@ def newton_method(x, debug=True):
     if debug is True:
         print "The Newton Method, DEBUG_MODE: ON:"
         for i in xrange(len(appr_list)):
-            print i, "\t", "{0:.15f}".format(appr_list[i])
+            print i + 1, "\t", "{0:.15f}".format(appr_list[i])
     return appr_list
 
 if __name__ == "__main__":

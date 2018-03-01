@@ -8,7 +8,7 @@ def question_3a(f, debug=True):
     if debug is True:
         print "Question 3 (a) results:"
         for i in xrange(len(x)):
-            print i, "\t", x[i]
+            print i + 1, "\t", "{:.15f}".format(x[i])
 
 def question_3b(g, debug=True):
     x = [.9, 0, 0, 0, 0, 0]
@@ -19,7 +19,7 @@ def question_3b(g, debug=True):
     if debug is True:
         print "Question 3 (b) results:"
         for i in xrange(0 ,len(x)):
-            print i, "\t", x[i]
+            print i + 1, "\t", "{:.15f}".format(x[i])
 
 def question_3d(g, debug=True):
     x = [.9, 0, 0, 0, 0, 0]
@@ -32,7 +32,7 @@ def question_3d(g, debug=True):
     if debug is True:
         print "Question 3 (d) results:"
         for i in xrange(0 ,len(x)):
-            print i, "\t", x[i]
+            print i + 1, "\t", "{:.15f}".format(x[i])
 
 if __name__ == "__main__":
     from numpy import exp
