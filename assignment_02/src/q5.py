@@ -23,3 +23,6 @@ if __name__ == "__main__":
     j0 = lambda x, y: (exp(y), x * exp(y) + 1)
     j1 = lambda x, y: (cos(x), sin(y))
     newton_method_sys(fxy, j0, j1)
+else:
+    import sys
+    sys.exit("please run as client...")

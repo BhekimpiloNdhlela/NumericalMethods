@@ -28,3 +28,5 @@ def newton_method(x, debug=True):
 if __name__ == "__main__":
     import math
     new_res, sec_res = newton_method(1. / 9.), secant_method(1. / 9.)
+else:
+    sys.exit("please run as client...")

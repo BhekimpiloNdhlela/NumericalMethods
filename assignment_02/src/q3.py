@@ -46,3 +46,6 @@ if __name__ == "__main__":
     question_3b(g)
     # no code required for 3 (c)
     question_3d(g)
+else:
+    import sys
+    sys.exit("please run as client...")
