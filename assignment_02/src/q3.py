@@ -15,15 +15,11 @@ def question_3b(g, debug=True):
     for i in xrange(5):
         gx, dx = g(x[i])
         x[i+1] = x[i] - (gx / dx)
+
     if debug is True:
         print "Question 3 (b) results:"
         for i in xrange(0 ,len(x)):
             print i, "\t", x[i]
-    """
-    osbevation: question_3b will never equal to one even if the number of
-    iterations is increased to 100. However, it approches 1.0 as the number
-    of itterations increase
-    """
 
 def question_3d(g, debug=True):
     x = [.9, 0, 0, 0, 0, 0]
@@ -32,6 +28,7 @@ def question_3d(g, debug=True):
     for i in xrange(5):
         gx, dx = g(x[i])
         x[i+1] = x[i] - (m * (gx / dx))
+
     if debug is True:
         print "Question 3 (d) results:"
         for i in xrange(0 ,len(x)):
