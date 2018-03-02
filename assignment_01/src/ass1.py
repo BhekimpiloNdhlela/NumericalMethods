@@ -3,7 +3,7 @@
 """
 author: Bhekimpilo Ndhlela
 author: 18998712
-module: Applied Mathematics(Numerical Analysis) TW324 
+module: Applied Mathematics(Numerical Analysis) TW324
 task  : computer assignment 01
 since : Friday-09-02-2018
 """
@@ -72,8 +72,8 @@ def get_appr3A(n, x=1):
         D = sm.factorial(k) * sm.factorial(n + k)
         J = J + (N / D)
     return J
-     
-def question3b(x=1, debug=False):
+
+def question3b(x=1, debug=True):
 
     vector_J_A = []     #vector to store approximations
     vector_J_B = []     #vector to store built in value
@@ -82,10 +82,10 @@ def question3b(x=1, debug=False):
 
     for n in xrange(1, 7):
         vector_J_A.append((((2 * n) / x) * vector_J_A[n]) - vector_J_A[n - 1])
-        
+
     for n in xrange(0, 8):
         vector_J_B.append(ss.jn(n, 1))
-        
+
     print len(vector_J_A), len(vector_J_B)
     if debug is True:
         print vector_J_A
@@ -95,10 +95,6 @@ def question3c():
     pass
 
 if __name__ == "__main__":
-    """
-    The main function that calls the functions or better of 
-    the client library.
-    """
     #for both cosine and sine functions
     from math import (cos, sin)
     #for the square root function
@@ -106,14 +102,14 @@ if __name__ == "__main__":
     #import this for scipy special jn
     import scipy.special as ss
     #import this for scipy misc factorial [for efficient factorial]
-    import scipy.misc as sm 
+    import scipy.misc as sm
 
 
-    #question1a() #call code for question 1a
+    question1a() #call code for question 1a
     #question1b() #call code for question 1b
-    question2()  #call code for question 2
+    #question2()  #call code for question 2
 
-    question3a()  #call code for question 3a
-    question3b()  #call code for question 3b
-    question3c()  #call code for question 3c
+    #question3a()  #call code for question 3a
+    #question3b()  #call code for question 3b
+    #question3c()  #call code for question 3c
 else: pass
