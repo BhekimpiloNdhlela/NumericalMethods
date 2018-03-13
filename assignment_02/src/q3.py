@@ -1,4 +1,11 @@
 #!/usr/bin/python
+"""
+author  : Bhekimpilo Ndhlela
+author  : 18998712
+module  : Applied Mathematics(Numerical Methods) TW324
+task    : computer assignment 02 question 3
+since   : Friday-02-03-2018
+"""
 def question_3a(f, debug=True):
     x = [.9, 0, 0, 0, 0, 0]
     for i in xrange(5):
