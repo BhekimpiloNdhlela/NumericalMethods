@@ -48,4 +48,5 @@ if __name__ == "__main__":
     questionb()
 
 else:
+    import sys
     sys.exit("Run Library as client.")
