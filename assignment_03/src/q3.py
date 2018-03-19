@@ -36,7 +36,7 @@ def question_c(debug=True):
 
 def question_d(N=4, debug=True):
     chebyshev_points = zeros(N)
-    chebyshev_points = [cos(((2 * k - 1) * pi)/(2 * N)) for k in xrange(1, N + 1)]
+    chebyshev_points = [3./2. + 3./2.*cos(((2 * k - 1) * pi)/(2 * N)) for k in xrange(1, N + 1)]
 
     if debug is True:
         print "DEBUG MODE : ON [Question 3 d.)]"

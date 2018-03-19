@@ -6,15 +6,16 @@ module  : Applied Mathematics(Numerical Methods) TW324
 task    : computer assignment 03 question 1 (a. to d.)
 since   : Friday-09-03-2018
 """
-def questiona(debug=True):
+def question_a(debug=True):
     global J
     J = [bessel_function(i) for i in xrange(0, 4)]
     if debug is True:
-        print "Question 1 (a.)"
+        print "Debug Mode : ON  \t Question 1 (a.)"
         print "i", "\t", "Jv(1)"
         for i in xrange(0, len(J)):
             print i, "\t", "{:.10f}".format(J[i])
-    print "\n"
+    else:
+        print "Debug Mode : OFF \t Question 1 (a.)"
 
 def bessel_function(v, x=1):
     j = 0
@@ -24,24 +25,43 @@ def bessel_function(v, x=1):
         j = j + b(k)
     return j
 
-def questionb(debug=True):
-    x = linspace(0,3, num=10)
-    print "len(x) =",len(x), "x = ", x
-    '''
-    This is a cubic interpolating polynomial, although it may
-    not look like it :-)!
-    '''
-    #y = lambda v : J[0]/(v-x[0])-(3*J[1])/(v-x[1])+(J[2]*3)/(v-x[2]) - J[3]/(v-x[3]) \
-    #               / (1/(v-x[0])-3/(v-x[1])+3/(v-x[2])-1/(v-x[3]))
+def question_b(debug=True):
+    x = linspace(0,3, num=4)   # equally spaced points on interval [0, 3]
+    num = lambda v : (x[0]/(v-J[0]))-((3*x[1])/(v-J[1])) + ((x[2]*3)/(v-J[2])) - (x[3]/(v-J[3]))
+    den = lambda v : (1/(v-J[0]))- (3/(v-J[1]))+(3/(v-J[2]))-(1/(v-J[3]))
 
-    #p = [y(i) for i in x]
+    # the interpolating function from Barycentric Interpolation
+    P = [num(x[i]) / den(x[i]) for i in xrange(0, 4)]
 
+    # plot p(v) and Jv(1) on the same system
+    plt.plot(x, J, x, P) # plotting t, b separately
+    plt.show()
 
+    # plot the error function Jv(1) - p(v)
+    err = [jv - pv for jv, pv in zip(J, P)]
+    plt.plot(x, err)
+    plt.show()
 
-    #if debug is True:
-        #print "Question 1 (b.)"
-        #for i, j, k in emumarate():
-        #    print i, j, j
+    if debug is True:
+        print "Debug Mode : ON  \t Question 1 (b.)"
+        print "x                  = ", x
+        print "p(v)               = ", P
+        print "Jv(1)              = ", J
+        print "err = Jv(1) - P(v) = ", err
+    else:
+        print "Debug Mode : OFF  \t Question 1 (b.)"
+
+def question_c(M4=3.0, debug=True):
+    if debug is True:
+        print "Debug Mode : ON  \t Question 1 (c.)"
+    else:
+        print "Debug Mode : OFF \t Question 1 (c.)"
+
+def question_d(debug=True):
+    if debug is True:
+        print "Debug Mode : ON  \t Question 1 (d.)"
+    else:
+        print "Debug Mode : OFF \t Question 1 (d.)"
 
 if __name__ == "__main__":
     J = [.0, .0, .0, .0]
@@ -49,8 +69,10 @@ if __name__ == "__main__":
     import scipy.misc as sm
     from numpy import linspace
     import matplotlib.pyplot as plt
-    questiona()
-    questionb()
+
+    question_a()
+    question_b()
+    #question_c()
 
 else:
     import sys
