@@ -11,6 +11,7 @@ def questiona(debug=True):
     J = [bessel_function(i) for i in xrange(0, 4)]
     if debug is True:
         print "Question 1 (a.)"
+        print "i", "\t", "Jv(1)"
         for i in xrange(0, len(J)):
             print i, "\t", "{:.10f}".format(J[i])
     print "\n"
@@ -24,17 +25,21 @@ def bessel_function(v, x=1):
     return j
 
 def questionb(debug=True):
-    x = linspace(0,3, num=4)
+    x = linspace(0,3, num=10)
+    print "len(x) =",len(x), "x = ", x
     '''
     This is a cubic interpolating polynomial, although it may
     not look like it :-)!
     '''
-    p = lambda x : J[0]/(x-1)-(3*J[1])/(x-1)+(J[2]*3)/(x-1) - J[3]/(x-1) \
-                   / (1/(x-1)-3/(x-1)+3/(x-1)-y4/(x-1))
+    #y = lambda v : J[0]/(v-x[0])-(3*J[1])/(v-x[1])+(J[2]*3)/(v-x[2]) - J[3]/(v-x[3]) \
+    #               / (1/(v-x[0])-3/(v-x[1])+3/(v-x[2])-1/(v-x[3]))
 
-    print x
-    if debug is True:
-        print "Question 1 (b.)"
+    #p = [y(i) for i in x]
+
+
+
+    #if debug is True:
+        #print "Question 1 (b.)"
         #for i, j, k in emumarate():
         #    print i, j, j
 

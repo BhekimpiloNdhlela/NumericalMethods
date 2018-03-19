@@ -34,8 +34,7 @@ def question_b(x, V, debug=True):
 def question_c(debug=True):
     pass
 
-def question_d(N=5, debug=True):
-    # N chebyshev points
+def question_d(N=4, debug=True):
     chebyshev_points = zeros(N)
     chebyshev_points = [cos(((2 * k - 1) * pi)/(2 * N)) for k in xrange(1, N + 1)]
 
