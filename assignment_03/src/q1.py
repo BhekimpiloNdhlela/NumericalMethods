@@ -27,14 +27,15 @@ def bessel_function(v, x=1, j=0):
 
 def question_b(debug=True):
     x = linspace(0,3, num=4)   # equally spaced points on interval [0, 3]
-    num = lambda v : (x[0]/(v-J[0]))-((3*x[1])/(v-J[1])) + ((x[2]*3)/(v-J[2])) - (x[3]/(v-J[3]))
-    den = lambda v : (1/(v-J[0]))- (3/(v-J[1]))+(3/(v-J[2]))-(1/(v-J[3]))
+    num = lambda v : (J[0]/(v-x[0]))-((J[1])/(v-x[1])) + ((J[2])/(v-x[2])) - \
+                     (J[3]/(v-x[3]))
+    den = lambda v : (1/(v-x[0]))- (3/(v-x[1]))+(3/(v-x[2]))-(1/(v-x[3]))
 
     # the interpolating function from Barycentric Interpolation
     P = [num(x[i]) / den(x[i]) for i in xrange(0, 4)]
 
     # plot p(v) and Jv(1) on the same system
-    func1, = plt.plot(x, J, label="J1(1)", linestyle='-')
+    func1, = plt.plot(x, J, label="J1(1)", linestyle='--')
     func2, = plt.plot(x, P, label="P(v)", linestyle='-')
     plt.title('Jx(1) and P(x) Function Tittle Should come here')
     plt.ylabel('Jx(1) and P(x)')
