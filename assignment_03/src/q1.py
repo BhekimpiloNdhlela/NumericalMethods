@@ -66,10 +66,10 @@ def question_c(M4=3.0, debug=True):
         print "Debug Mode : ON  \t Question 1 (c.)"
     else:
         print "Debug Mode : OFF \t Question 1 (c.)"
+        print "Debug Mode : ON  \t Question 1 (d.)"
 
 def question_d(debug=True):
     if debug is True:
-        print "Debug Mode : ON  \t Question 1 (d.)"
     else:
         print "Debug Mode : OFF \t Question 1 (d.)"
 """
