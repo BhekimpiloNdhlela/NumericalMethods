@@ -35,6 +35,7 @@ def question_c(b=3, a=0, N=0.0, debug=True):
     approx = lambda N : exp(N) * ((b-a)**N / (fact(N) * 2**(2*N-1)))
     while 10**-10 <= approx(N):
         N = N + 1.0
+        print N
 
     if debug is True:
         print "\nDEBUG MODE: ON [Question 3 (c.)]:"
@@ -88,7 +89,6 @@ if __name__ == "__main__":
     import warnings
     import matplotlib.pyplot as plt
     from numpy import linspace
-
 
     x, V = question_a(debug=True)
     question_b(x, V, debug=True)

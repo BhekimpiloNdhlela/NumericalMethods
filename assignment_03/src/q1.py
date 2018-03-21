@@ -7,8 +7,6 @@ task    : computer assignment 03 question 1 (a. to d.)
 since   : Friday-09-03-2018
 """
 def question_a(debug=True):
-    """
-    """
     global J
     J = [bessel_function(i) for i in xrange(0, 4)]
 
@@ -17,12 +15,8 @@ def question_a(debug=True):
         print "i", "\t", "Jv(1)"
         for i in xrange(0, len(J)):
             print i, "\t", "{:.10f}".format(J[i])
-    else:
-        print "Debug Mode : OFF \t Question 1 (a.)"
 
 def bessel_function(v, x=1, j=0):
-    """
-    """
     b = lambda k : pow(-1, k) * pow(float(x)/2, v + (2 * k)) \
                    / (sm.factorial(k) * sm.factorial(v + k))
     for k in xrange(0, 4):
@@ -30,14 +24,16 @@ def bessel_function(v, x=1, j=0):
     return j
 
 def question_b(debug=True):
-    """
-    """
-    x = linspace(0,3, num=4)   # equally spaced points on interval [0, 3]
-    num = lambda v : (J[0]/(v-x[0]))-((J[1])/(v-x[1]))+((J[2])/(v-x[2]))-(J[3]/(v-x[3]))
-    den = lambda v : (1./(v-x[0]))-(3./(v-x[1]))+(3./(v-x[2]))-(1./(v-x[3]))
+    x = linspace(0,3, num=100)   # equally spaced points on interval [0, 3]
+    x = [a for a in x if a != 0. if a != 1. if a != 2. if a != 3.]
+
+    num = lambda v : (J[0]/v)-((3*J[1])/(v-1.))+((3*J[2])/(v-2.))-(J[3]/(v-3.))
+    den = lambda v : (1./v)-(3./(v-1.))+(3./(v-2.))-(1./(v-3.))
 
     # the interpolating function from Barycentric Interpolation
-    P = [num(x[i]) / den(x[i]) for i in xrange(0, 4)]
+    P = [num(i) / den(i) for i in x]
+    global J
+    J = [bessel_function(i) for i in x]
 
     # plot p(v) and Jv(1) on the same system
     func1, = plt.plot(x, J, label="Jv(1)", linestyle='--')
@@ -45,50 +41,54 @@ def question_b(debug=True):
     plt.title('Jv(1) and P(v) Function Tittle Should come here')
     plt.ylabel('Jv(1) and P(v)')
     plt.xlabel('v')
-    # include legend
     first_legend = plt.legend(handles=[func1], loc=1)
     ax = plt.gca().add_artist(first_legend)
     plt.legend(handles=[func2], loc=4)
     plt.show()
     # plot the error function Jv(1) - p(v)
+
     err = [jv - pv for jv, pv in zip(J, P)]
     plt.plot(x, err, 'r-')
     plt.title('Error Functioin Tittle Should come here')
     plt.ylabel('Error: Jv(1) - P(v)')
     plt.xlabel('v')
     plt.show()
-
-    if debug is True:
+    # max_error
+    max_error = sorted(err)[-1]
+    print max_error
+    if debug is False:
         print "Debug Mode : ON  \t Question 1 (b.)"
-        print "x                  = ", x
-        print "p(v)               = ", P
-        print "Jv(1)              = ", J
-        print "err = Jv(1) - P(v) = ", err
-    else:
-        print "Debug Mode : OFF  \t Question 1 (b.)"
+        print "i \t\t x \t\t P(x) \t\t Jx(1) \t\t err"
+        for i in xrange(len(x)):
+            print i, "\t", "{:.10f}".format(x[i]), "\t", "{:.10f}".format(P[i]),\
+                     "\t", "{:.10f}".format(J[i]), "\t", "{:.10f}".format(err[i])
 
 def question_c(M4=3.0, debug=True):
-    """
-    """
+
     if debug is True:
         print "Debug Mode : ON  \t Question 1 (c.)"
-    else:
-        print "Debug Mode : OFF \t Question 1 (c.)"
 
 
 def question_d(debug=True):
-    """
-    """
+    # coeff of : pi'(x) = 2x^3 -9x^2 + 11x - 3 = 0
+    coeff = [2, -9, 11, -3]
+    zeros = roots(coeff)
+
+    pi_x = lambda x : x**4 - 6*(x**3) + 11*(x**2) - 6*x
+    maxi = [pi_x(x) for x in zeros]
     if debug is True:
         print "Debug Mode : ON  \t Question 1 (d.)"
-    else:
-        print "Debug Mode : OFF \t Question 1 (d.)"
+        for i, (zero, max_min) in enumerate(zip(zeros, maxi)):
+            print i,'\t', "{:.10f}".format(zero), '\t', \
+                          "{:.10f}".format(max_min),'\t',\
+                          "{:.10f}".format(fabs(max_min))
 
 if __name__ == "__main__":
     J = [.0, .0, .0, .0]
+    from math import fabs
     import scipy.special as ss
     import scipy.misc as sm
-    from numpy import linspace
+    from numpy import (linspace, roots)
     import matplotlib.pyplot as plt
 
     question_a()
