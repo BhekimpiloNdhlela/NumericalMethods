@@ -53,23 +53,48 @@ def question_d(N, debug=True):
         print "i", "\t", "Chebyshev_Points"
         for i, value in enumerate(chebyshev_points):
             print i, "\t", value
+    else:
+        print "\nDEBUG MODE : OFF [Question 3 d.)]"
+    return chebyshev_points
 
+def question_e(chebyshev_points, debug=True):
+    exp_xk = [exp(vk) for vk in chebyshev_points]
+    #use polyfit
+    fit = polyfit(chebyshev_points, exp_xk, len(exp_xk) - 1)
+    err_vals = [e - f for e, f in zip(exp_xk, fit)]
+    warnings.simplefilter('ignore', RankWarning) #ignore warnings
+    # plot the error function
+    plt.plot(linspace(0,3,num=19), exp_xk, label="exp(xk)")
+    plt.plot(linspace(0,3,num=19), err_vals, label="err_vals")
+    plt.plot(linspace(0,3,num=19), fit, label="fit")
+    plt.legend(bbox_to_anchor=(1.0, 1), loc=0, borderaxespad=0.)
+    plt.show()
 
-def question_e(debug=True):
-    pass
+    if debug is True:
+        print "\nDEBUG MODE : ON  [Question 3 e.)]"
+        print "k", "\t", "chebyshev_points(k)", "\t", "exp(k)\t\t\t", "polyfit_points(k)"
+        for k, (xk, e) in enumerate(zip(chebyshev_points, exp_xk)):
+            print k, "\t", "{:.16f}".format(xk), "\t","{:.16f}".format(e), \
+                  "\t", "{:.16f}".format(fit[k])
+    else:
+        print "\nDEBUG MODE : OFF [Question 3 e.)]"
 
 if __name__ == "__main__":
     from math import (cos, pi, exp)
-    from numpy import (array, shape, transpose, matmul, zeros)
+    from numpy import (array, shape, transpose, matmul, zeros, polyfit, RankWarning)
     from numpy.polynomial import chebyshev as C
     from numpy.linalg import inv
     from scipy.misc import factorial as fact
+    import warnings
+    import matplotlib.pyplot as plt
+    from numpy import linspace
 
-    x, V = question_a(debug=False)
-    question_b(x, V, debug=False)
+
+    x, V = question_a(debug=True)
+    question_b(x, V, debug=True)
     N = question_c()
-    question_d(N)
-    question_e()
+    chebyshev_points = question_d(N)
+    question_e(chebyshev_points)
 else:
     import sys
     sys.exit("Run the library as the client.")

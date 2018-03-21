@@ -7,6 +7,8 @@ task    : computer assignment 03 question 1 (a. to d.)
 since   : Friday-09-03-2018
 """
 def question_a(debug=True):
+    """
+    """
     global J
     J = [bessel_function(i) for i in xrange(0, 4)]
 
@@ -19,6 +21,8 @@ def question_a(debug=True):
         print "Debug Mode : OFF \t Question 1 (a.)"
 
 def bessel_function(v, x=1, j=0):
+    """
+    """
     b = lambda k : pow(-1, k) * pow(float(x)/2, v + (2 * k)) \
                    / (sm.factorial(k) * sm.factorial(v + k))
     for k in xrange(0, 4):
@@ -26,20 +30,21 @@ def bessel_function(v, x=1, j=0):
     return j
 
 def question_b(debug=True):
+    """
+    """
     x = linspace(0,3, num=4)   # equally spaced points on interval [0, 3]
-    num = lambda v : (J[0]/(v-x[0]))-((J[1])/(v-x[1])) + ((J[2])/(v-x[2])) - \
-                     (J[3]/(v-x[3]))
-    den = lambda v : (1/(v-x[0]))- (3/(v-x[1]))+(3/(v-x[2]))-(1/(v-x[3]))
+    num = lambda v : (J[0]/(v-x[0]))-((J[1])/(v-x[1]))+((J[2])/(v-x[2]))-(J[3]/(v-x[3]))
+    den = lambda v : (1./(v-x[0]))-(3./(v-x[1]))+(3./(v-x[2]))-(1./(v-x[3]))
 
     # the interpolating function from Barycentric Interpolation
     P = [num(x[i]) / den(x[i]) for i in xrange(0, 4)]
 
     # plot p(v) and Jv(1) on the same system
-    func1, = plt.plot(x, J, label="J1(1)", linestyle='--')
+    func1, = plt.plot(x, J, label="Jv(1)", linestyle='--')
     func2, = plt.plot(x, P, label="P(v)", linestyle='-')
-    plt.title('Jx(1) and P(x) Function Tittle Should come here')
-    plt.ylabel('Jx(1) and P(x)')
-    plt.xlabel('x')
+    plt.title('Jv(1) and P(v) Function Tittle Should come here')
+    plt.ylabel('Jv(1) and P(v)')
+    plt.xlabel('v')
     # include legend
     first_legend = plt.legend(handles=[func1], loc=1)
     ax = plt.gca().add_artist(first_legend)
@@ -49,8 +54,8 @@ def question_b(debug=True):
     err = [jv - pv for jv, pv in zip(J, P)]
     plt.plot(x, err, 'r-')
     plt.title('Error Functioin Tittle Should come here')
-    plt.ylabel('Error: Jx(1) - P(x)')
-    plt.xlabel('x')
+    plt.ylabel('Error: Jv(1) - P(v)')
+    plt.xlabel('v')
     plt.show()
 
     if debug is True:
@@ -61,19 +66,23 @@ def question_b(debug=True):
         print "err = Jv(1) - P(v) = ", err
     else:
         print "Debug Mode : OFF  \t Question 1 (b.)"
-"""
+
 def question_c(M4=3.0, debug=True):
+    """
+    """
     if debug is True:
         print "Debug Mode : ON  \t Question 1 (c.)"
     else:
         print "Debug Mode : OFF \t Question 1 (c.)"
-        print "Debug Mode : ON  \t Question 1 (d.)"
+
 
 def question_d(debug=True):
+    """
+    """
     if debug is True:
+        print "Debug Mode : ON  \t Question 1 (d.)"
     else:
         print "Debug Mode : OFF \t Question 1 (d.)"
-"""
 
 if __name__ == "__main__":
     J = [.0, .0, .0, .0]
@@ -84,8 +93,8 @@ if __name__ == "__main__":
 
     question_a()
     question_b()
-    #question_c()
-    #question_d()
+    question_c()
+    question_d()
 
 else:
     import sys
