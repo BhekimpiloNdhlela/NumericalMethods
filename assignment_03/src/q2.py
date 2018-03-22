@@ -49,31 +49,3 @@ if __name__ == "__main__":
 else:
     import sys
     sys.exit("Please run this library as client.")
-
-
-"""
-%% Question 2
-
-%i
-X = [0 1 2 3];
-Y = [J_v(1) J_v(2) J_v(3) J_v(4)];
-
-x = linspace(0,3);
-cub_spln = spline(X,Y,x);
-% Not-A-knot Interpolated bessel function
-plot(x,cub_spln,v,J_v,'*',x,besselj(x,1))
-
-error =cub_spln - besselj(x,1);
-plot(x,error);
-
-%ii
-
-x = linspace(0,3);
-cub_spln = spline(X,[0 Y 0],x);
-% Not-A-knot Interpolated bessel function
-plot(x,cub_spln,v,J_v,'*',x,besselj(x,1))
-
-error = cub_spln - besselj(x,1);
-%Plot the error
-plot(x,error)
-"""
