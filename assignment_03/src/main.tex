@@ -174,8 +174,75 @@ $max(1.0000000000; 0.5625000000; 1.0000000000)$ = $1.0000000000$\\\\
 Hence: $ max_{x_0 \leq x \leq x_3} |\pi(x)| = 1.0000$ 
 }
 \pagebreak
+\section*{2}
+\subsection*{i.)}
+\subsection*{Python Source Code:}
+\begin{lstlisting}[language=Python]
+def question_i(a=0.0, b=3.0, N=100):
+    X = linspace(a, b, num=N, endpoint=True)
+    J = [__bessel_function__(i) for i in X]
+    data_p = [__bessel_function__(i) for i in xrange(0, 4)]
+    cs = CubicSpline(X, J, bc_type="not-a-knot")
+
+    error = [j - p for j, p in zip(J, cs(X))]
+    plt.title("CS Interpolants: Not-a-Knot Conditions")
+    plt.xlabel("x")
+    plt.ylabel("y")
+    plt.plot([0,1,2,3], data_p, 'o', label='data points')
+    plt.plot(X, cs(X), '--', label='CS Not-a-Knot')
+    plt.plot(X, error, '-', label="error")
+    plt.legend(loc='up right', ncol=2)
+    plt.show()
+\end{lstlisting}
 
 
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}{\linewidth}
+    \includegraphics[width=\linewidth]{not_knot_i.png}
+    \caption{These are the J_v(1) and P(v) curves/ graphs }
+  \end{subfigure}
+\end{figure}
+
+\textbf{ \\ \\ The Bessel Function was perfectly interpolated when the Not-a-Knot Cubic Spline was used to interpolate the the Function since\\
+                the error:  $J_x(1) - P(x) = 0 $.}
+
+\pagebreak
+
+
+\subsection*{ii.) Clamped With: $s^' (0) = s^' (3) = 0$}
+\subsection*{Python Source Code:}
+\begin{lstlisting}[language=Python]
+def question_ii(a=0.0, b=3.0, N=100):
+    X = linspace(a, b, num=N)
+    J = [__bessel_function__(i) for i in X]
+    cs = CubicSpline(X, J, bc_type="clamped")
+    error = [j - p for j, p in zip(J, cs(X))]
+    data_p = [__bessel_function__(i) for i in xrange(0, 4)]
+    plt.title("CS Interpolants: Clamped CS Conditions")
+    plt.xlabel("x")
+    plt.ylabel("y")
+    plt.plot([0,1,2,3], data_p, 'o', label='data points')
+    plt.plot(X, cs(X), '--', label='CS clamped')
+    plt.plot(X, error, '-', label="error")
+    plt.legend(loc='up right', ncol=2)
+    plt.show()
+\end{lstlisting}
+
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}{\linewidth}
+    \includegraphics[width=\linewidth]{clamped_ii.png}
+    \caption{These are the J_v(1) and P(v) curves/ graphs }
+  \end{subfigure}
+\end{figure}
+
+
+\textbf{ \\ \\ The Bessel Function was perfectly interpolated when the clamped Cubic Spline was used to interpolate the the Function since\\
+                the error:  $J_x(1) - P(x) = 0 $. and also where it was given that: \\ $s^' (1) = s^' (3) = 0$}
+
+
+\pagebreak
 
 \section*{Question 3}
 \subsection*{a.)}
@@ -198,11 +265,11 @@ def question_a(N=4, debug=True):
 \begin{bmatrix} 0.9238795325112867 & 0.38268343236508984 & -0.3826834323650897 & -0.9238795325112867 \end{bmatrix}}\\ \\ \\
 
 \textbf{ let: V $=$ Chebyshev Vandermonde Matrix \\ 
-v = \begin{pmatrix} 
- 1.0 &  1.0 & 1.0 & 1.0 \\
-  0.92387953 & 0.38268343& -0.38268343 &-0.92387953\\
-  0.70710678 &-0.70710678 &-0.70710678 & 0.70710678\\
-  0.38268343 &-0.92387953 & 0.92387953 &-0.38268343\\
+V = \begin{pmatrix} 
+  1.     &     0.92387953 & 0.70710678 & 0.38268343\\
+  1.     &     0.38268343 &-0.70710678 &-0.92387953\\
+  1.    &     -0.38268343 &-0.70710678 & 0.92387953\\
+  1.   &      -0.92387953 & 0.70710678 &-0.38268343\\
  \end{pmatrix}}
 \pagebreak
 
@@ -230,22 +297,19 @@ def question_b(x, V, debug=True):
 
 \[
 \textbf{c} = 
-  \begin{pmatrix}  0.25 & 0.46193977 & 0.35355339 & 0.19134172\\
-0.25 & 0.19134172 & -0.35355339 & -0.46193977\\
- 0.25 & -0.19134172 & -0.35355339 & 0.46193977\\
- 0.25 & -0.46193977 & 0.35355339 & -0.19134172 \end{pmatrix} 
+  \begin{pmatrix} 0.25  &0.25        &0.25&        0.25\\
+  0.46193977 & 0.19134172 &-0.19134172 &-0.46193977\\
+  0.35355339 &-0.35355339 &-0.35355339 & 0.35355339\\
+  0.19134172 &-0.46193977 & 0.46193977 &-0.19134172 \end{pmatrix} 
   \begin{pmatrix} 2.5190441714069842\\ 1.4662138007571095\\ 0.682028773350537\\ 0.39697596864348 \end{pmatrix}
 \]
 
-\[ \textbf{c} = \begin{pmatrix} [ 1.62415515 & 0.48579634 & 0.29145858 & 0.1176341 \end{pmatrix} \\ \\ \]
-
+\[ \textbf{c} = \begin{pmatrix}  1.26606568 & 1.130315   & 0.27145036  &0.04379392 \end{pmatrix} \\ \\ \]
+\\
 \textbf{The vector c is the coeficient vector since: \\
 Vc = y = exp(x) = $e^x$}
 
 \pagebreak
-
-
-
 
 \subsection*{c.)}
 \subsection*{Python Source Code:}

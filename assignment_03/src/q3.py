@@ -11,7 +11,7 @@ def question_a(N=4, debug=True):
     x = zeros(N)
     x = [cos(((2 * k - 1) * pi)/(2 * N)) for k in xrange(1, N + 1)]
     # defining the chebyshev Vandermonde matrix where V = 4x4 Matrix
-    V = C.chebvander(x, N - 1).T
+    V = C.chebvander(x, N - 1)
     if debug is True:
         print "DEBUG MODE: ON [Question 3 (a.)]:"
         print "vector x   = ", x
