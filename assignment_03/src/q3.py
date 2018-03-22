@@ -12,7 +12,6 @@ def question_a(N=4, debug=True):
     x = [cos(((2 * k - 1) * pi)/(2 * N)) for k in xrange(1, N + 1)]
     # defining the chebyshev Vandermonde matrix where V = 4x4 Matrix
     V = C.chebvander(x, N - 1).T
-
     if debug is True:
         print "DEBUG MODE: ON [Question 3 (a.)]:"
         print "vector x   = ", x
@@ -24,7 +23,6 @@ def question_b(x, V, debug=True):
     exp_x = [exp(i) for i in x]
     V_inv = inv(V)
     c = matmul(V_inv, exp_x)
-
     if debug is True:
         print "\nDEBUG MODE: ON [Question 3 (b.)]:"
         print "vector e^x = ", exp_x
@@ -36,7 +34,6 @@ def question_c(b=3, a=0, N=0.0, debug=True):
     while 10**-10 <= approx(N):
         N = N + 1.0
         print N
-
     if debug is True:
         print "\nDEBUG MODE: ON [Question 3 (c.)]:"
         print "Number of Chebyshev Points N = ", int(N)
@@ -47,15 +44,12 @@ def question_d(N, debug=True):
     chebyshev_points = zeros(int(N))
     chebyshev_points = [3./2. + 3./2.*cos(((2 * k - 1) * pi)/(2 * N)) \
                         for k in xrange(1, int(N) + 1)]
-
     if debug is True:
         print "\nDEBUG MODE : ON [Question 3 d.)]"
         print "The n Chebyshev Point where n = ", int(N)
         print "i", "\t", "Chebyshev_Points"
         for i, value in enumerate(chebyshev_points):
             print i, "\t", value
-    else:
-        print "\nDEBUG MODE : OFF [Question 3 d.)]"
     return chebyshev_points
 
 def question_e(chebyshev_points, debug=True):
@@ -65,15 +59,18 @@ def question_e(chebyshev_points, debug=True):
     err_vals = [e - f for e, f in zip(exp_xk, fit)]
     warnings.simplefilter('ignore', RankWarning) #ignore warnings
     # plot the error function
-    plt.plot(linspace(0,3,num=19), exp_xk, label="exp(xk)")
+    #plt.plot(linspace(0,3,num=19), exp_xk, label="exp(xk)")
     plt.plot(linspace(0,3,num=19), err_vals, label="err_vals")
-    plt.plot(linspace(0,3,num=19), fit, label="fit")
+    #plt.plot(linspace(0,3,num=19), fit, label="fit")
+    plt.title('Error Functioin')
+    plt.ylabel('Error')
+    plt.xlabel('x')
     plt.legend(bbox_to_anchor=(1.0, 1), loc=0, borderaxespad=0.)
     plt.show()
-
     if debug is True:
         print "\nDEBUG MODE : ON  [Question 3 e.)]"
-        print "k", "\t", "chebyshev_points(k)", "\t", "exp(k)\t\t\t", "polyfit_points(k)"
+        print "k", "\t", "chebyshev_points(k)", "\t", "exp(k)\t\t\t",\
+              "polyfit_points(k)"
         for k, (xk, e) in enumerate(zip(chebyshev_points, exp_xk)):
             print k, "\t", "{:.16f}".format(xk), "\t","{:.16f}".format(e), \
                   "\t", "{:.16f}".format(fit[k])
@@ -82,13 +79,13 @@ def question_e(chebyshev_points, debug=True):
 
 if __name__ == "__main__":
     from math import (cos, pi, exp)
-    from numpy import (array, shape, transpose, matmul, zeros, polyfit, RankWarning)
+    from numpy import (array, matmul, zeros, RankWarning)
+    from numpy import (linspace, shape, transpose, polyfit)
     from numpy.polynomial import chebyshev as C
     from numpy.linalg import inv
     from scipy.misc import factorial as fact
     import warnings
     import matplotlib.pyplot as plt
-    from numpy import linspace
 
     x, V = question_a(debug=True)
     question_b(x, V, debug=True)
