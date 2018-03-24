@@ -18,8 +18,8 @@ def question_a(n=8.0, debug=True):
     f_ = (1. / h**2.) * matmul(A, f).T
 
     #plot the approximation of the curve
-    plt.plot(linspace(0.0, 1.0, 8.0), f, 'ro')
-    plt.plot(linspace(0.0, 1.0, 8.0), f, 'k--')
+    plt.plot(linspace(0.0, 1.0, 6.0), f_, 'ro')
+    plt.plot(linspace(0.0, 1.0, 6.0), f_, 'k--')
     plt.show()
 
     if debug is True:
