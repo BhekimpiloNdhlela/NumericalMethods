@@ -17,6 +17,11 @@ def question_a(n=8.0, debug=True):
                 [0, 0, 0, 0, 0, 1,-2, 1]])
     f_ = (1. / h**2.) * matmul(A, f).T
 
+    #plot the approximation of the curve
+    plt.plot(linspace(0.0, 1.0, 8.0), f, 'ro')
+    plt.plot(linspace(0.0, 1.0, 8.0), f, 'k--')
+    plt.show()
+
     if debug is True:
         print "DEBUG MODE: [ON] \t [QUESTION 5 A.)]"
         print "f\"(x) = ",
@@ -25,6 +30,8 @@ def question_a(n=8.0, debug=True):
 
 if __name__ == "__main__":
     from numpy import (linspace, exp, array, shape, matrix, matmul)
+    import matplotlib.pyplot as plt
+
     question_a()
 else:
     from sys import exit
