@@ -20,6 +20,9 @@ def question_a(n=8.0, debug=True):
     #plot the approximation of the curve
     plt.plot(linspace(0.0, 1.0, 6.0), f_, 'ro')
     plt.plot(linspace(0.0, 1.0, 6.0), f_, 'k--')
+    plt.title("The Approximation of the Function exp(x) between [0;1]")
+    plt.xlabel("x")
+    plt.ylabel("f\"(x) = exp(x)")
     plt.show()
 
     if debug is True:
