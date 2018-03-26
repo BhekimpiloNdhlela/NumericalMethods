@@ -17,7 +17,11 @@ def question_a(n=8.0, debug=True):
                 [0, 0, 0, 0, 0, 1,-2, 1]])
     f_ = (1. / h**2.) * matmul(A, f).T
 
-    #plot the approximation of the curve
+    """
+    plot the approximation of the curve unnecessary for question
+    5. I am doing it as a means of viewing the solution of the
+    approximation.
+    """
     plt.plot(linspace(0.0, 1.0, 6.0), f_, 'ro')
     plt.plot(linspace(0.0, 1.0, 6.0), f_, 'k--')
     plt.title("The Approximation of the Function exp(x) between [0;1]")

@@ -60,9 +60,6 @@ def question_b(debug=True):
                            "{:.10f}".format(P[i]), "\t", \
                            "{:.10f}".format(J[i]), "\t", \
                            "{:.10f}".format(error[i])
-    return error
-
-def question_c(error, M4=3.0, h=1.0, n=4.0, debug=True):
     est_error = (1. / (4. * n)) * (h**n) * M4
     max_error = sorted(error)[-1] # get max error from questio 1 b.)
     #compare errors is est_error >= max_error
