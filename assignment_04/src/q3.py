@@ -6,36 +6,36 @@ module  : Applied Mathematics(Numerical Methods) TW324
 task    : computer assignment 04 question 1 (a. to b.)
 since   : Friday-23-03-2018
 """
-def absolute_error(steps, debug=False):
+def exact(steps, debug=False):
     fpp = lambda x, h : ((-f(x+2*h)+16*f(x+h)-30*f(x)+16*f(x-h)-f(x-2*h))/(12*h*h))
     f = lambda x : sqrt(1 - 2 * sin(x))
-    abs_err = [abs(fpp(0.0, step) + 1.0) for step in steps]
+    exact = [abs(fpp(0.0, step) + 1.0) for step in steps]
     if debug is True:
         print "DEBUG MODE: [ON] QUESTION 3 bi.)"
-        print "i","\t" ,"Step Size", "\t", "Absolute Error"
-        for i, (h, aE) in enumerate(zip(steps, abs_err)):
+        print "i","\t" ,"Step Size", "\t", "Exact Error"
+        for i, (h, aE) in enumerate(zip(steps, exact)):
             print (i+1), "\t","{:.7f}".format(h), "\t", "{:.10f}".format(aE)
-    return abs_err
+    return exact
 
-def round_off_error(steps, M=11.0, debug=False):
+def bound(steps, M=11.0, debug=False):
     machine_eps = finfo(float).eps
-    rnd_err = [(18.0 * machine_eps)/(12.0*h*h) + M*(h**4) for h in steps]
+    bound = [(18.0 * machine_eps)/(11.0*h*h) + M*(h**4) for h in steps]
     if debug is True:
         print "DEBUG MODE: [ON] QUESTION 3 bii.)"
-        print "i","\t" ,"Step Size", "\t", "Round Error"
-        for i, (h, aE) in enumerate(zip(steps, rnd_err)):
+        print "i","\t" ,"Step Size", "\t", "Bound"
+        for i, (h, aE) in enumerate(zip(steps, bound)):
             print (i+1), "\t","{:.7f}".format(h), "\t", "{:.10f}".format(aE)
-    return rnd_err
+    return bound
 
-def plot_error_functions(steps, abs_err, rnd_err):
+def plot_error_functions(steps, exact, bound):
     #loglog plot to display the error as function of the step size
-    plt.title("Plot of the Absolute Error as h(Step size) Changes")
+    plt.title("Plot of the Exact Error and Bound as h(Step size) Changes")
     plt.xlabel("h (Step Size)")
-    plt.ylabel("|xc - x| (Absolute Error) vs RoundOff Error")
+    plt.ylabel("Exact vs Bound")
     plt.yscale('log')
     plt.xscale('log')
-    plt.plot(steps, abs_err, "k-", label="Absolute Error")
-    plt.plot(steps, rnd_err, "k--", label="RoundOff Error")
+    plt.plot(steps, exact, "k-", label="Exact")
+    plt.plot(steps, bound, "k--", label="Bound")
     plt.legend(bbox_to_anchor=(.65, .9))
     plt.show()
 
@@ -46,8 +46,8 @@ if __name__ == "__main__":
     from math import pow
 
     steps = logspace(-7, -1, num=100)
-    abs_err, rnd_err = absolute_error(steps), round_off_error(steps)
-    plot_error_functions(steps, abs_err, rnd_err)
+    exact, bound = exact(steps), bound(steps)
+    plot_error_functions(steps, exact, bound)
 else:
     from sys import exit
     exit("USAGE: python q3.py")
