@@ -21,25 +21,25 @@ def question_a(steps, debug=False):
 
 def question_b(steps, M=11.0, debug=False):
     machine_eps = finfo(float).eps
-    error = [(18.0 * machine_eps)/(12.0*h) + M*(h**4) for h in steps]
+    rnd_err = [(18.0 * machine_eps)/(12.0*h) + M*(h**4) for h in steps]
 
     if debug is True:
         print "DEBUG MODE: [ON] QUESTION 1 b.)"
-        print "i","\t" ,"Step Size", "\t", "Absolute Error"
-        for i, (h, aE) in enumerate(zip(steps, error)):
+        print "i","\t" ,"Step Size", "\t", "Round Error"
+        for i, (h, aE) in enumerate(zip(steps, rnd_err)):
             print (i+1), "\t","{:.7f}".format(h), "\t", "{:.10f}".format(aE)
-    return error
+    return rnd_err
 
-def plot_error_functions(steps, abs_err, error):
+def plot_error_functions(steps, abs_err, rnd_err):
     #loglog plot to display the error as function of the step size
     plt.title("Plot of the Absolute Error as h(Step size) Changes")
     plt.xlabel("h (Step Size)")
-    plt.ylabel("|xc - x| (Absolute Error)")
+    plt.ylabel("|xc - x| (Absolute Error) vs RoundOff Errors")
     plt.yscale('log')
     plt.xscale('log')
-    plt.plot(steps, abs_err, "k-", label="question (a.)")
-    plt.plot(steps, error, "k--", label="question (b.)")
-    plt.legend(bbox_to_anchor=(1.0, 1), loc=0, borderaxespad=0.)
+    plt.plot(steps, abs_err, "k-", label="Absolute Error")
+    plt.plot(steps, rnd_err, "k--", label="RoundOff Error")
+    plt.legend(bbox_to_anchor=(.65, .9))
     plt.show()
 
 if __name__ == "__main__":
@@ -49,8 +49,8 @@ if __name__ == "__main__":
     from math import pow
 
     steps = logspace(-7, -1, num=100)
-    abs_err, error = question_a(steps), question_b(steps)
-    plot_error_functions(steps, abs_err, error)
+    abs_err, rnd_err = question_a(steps), question_b(steps)
+    plot_error_functions(steps, abs_err, rnd_err)
 else:
     from sys import exit
     exit("USAGE: python q1.py")
