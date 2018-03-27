@@ -3,7 +3,7 @@
 author  : Bhekimpilo Ndhlela
 author  : 18998712
 module  : Applied Mathematics(Numerical Methods) TW324
-task    : computer assignment 04 question 5 (a.)
+task    : computer assignment 04 question 5(a)
 since   : Friday-23-03-2018
 """
 def question_a(n=8.0, debug=True):

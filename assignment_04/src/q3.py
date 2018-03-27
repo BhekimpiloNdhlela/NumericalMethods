@@ -3,7 +3,7 @@
 author  : Bhekimpilo Ndhlela
 author  : 18998712
 module  : Applied Mathematics(Numerical Methods) TW324
-task    : computer assignment 04 question 1 (a. to b.)
+task    : computer assignment 04 question 3(bi) & (bii)
 since   : Friday-23-03-2018
 """
 def exact(steps, x=0.0, debug=False):
