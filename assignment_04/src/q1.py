@@ -6,15 +6,15 @@ module  : Applied Mathematics(Numerical Methods) TW324
 task    : computer assignment 04 question 1 (a. to b.)
 since   : Friday-23-03-2018
 """
-def question_a(steps, debug=False):
+def question_a(steps, x=0.0 debug=False):
     fp = lambda x, h : ((-f(x+2*h)+8*f(x+h)-8*f(x-h)+f(x-2*h))/(12*h))
     f = lambda x : sqrt(1 - 2 * sin(x))
-    exact = [abs(fp(0.0, step) + 1.0) for step in steps]
+    exact = [abs(fp(x, h) + 1.0) for h in steps]
     if debug is True:
         print "DEBUG MODE: [ON] QUESTION 1 a.)"
         print "i","\t" ,"Step Size", "\t", "Exact Error"
-        for i, (h, aE) in enumerate(zip(steps, exact)):
-            print (i+1), "\t","{:.7f}".format(h), "\t", "{:.10f}".format(aE)
+        for i, (h, err) in enumerate(zip(steps, exact)):
+            print (i+1), "\t","{:.7f}".format(h), "\t", "{:.10f}".format(err)
     return exact
 
 def question_b(steps, M=11.0, debug=False):
@@ -23,11 +23,11 @@ def question_b(steps, M=11.0, debug=False):
     if debug is True:
         print "DEBUG MODE: [ON] QUESTION 3 bii.)"
         print "i","\t" ,"Step Size", "\t", "Bound"
-        for i, (h, aE) in enumerate(zip(steps, bound)):
-            print (i+1), "\t","{:.7f}".format(h), "\t", "{:.10f}".format(aE)
+        for i, (h, err) in enumerate(zip(steps, bound)):
+            print (i+1), "\t","{:.7f}".format(h), "\t", "{:.10f}".format(err)
     return bound
 
-def plot_error_functions(steps, exact, bound):
+def plot_err_functs(steps, exact, bound):
     #loglog plot to display the error as function of the step size
     plt.title("Plot of the Exact Error and Bound as h(Step size) Changes")
     plt.xlabel("h (Step Size)")
@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
     steps = logspace(-7, -1, num=100)
     exact, bound = question_a(steps), question_b(steps)
-    plot_error_functions(steps, exact, bound)
+    plot_err_functs(steps, exact, bound)
 else:
     from sys import exit
     exit("USAGE: python q3.py")
