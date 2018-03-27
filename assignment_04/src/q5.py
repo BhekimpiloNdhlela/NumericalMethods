@@ -34,6 +34,9 @@ def question_a(n=8.0, debug=True):
         print "f\"(x) = ",
         for i in f_:
             print i,
+        print "\nDim(f_) = ", shape(f_), "\t",\
+              "Dim(A)  = ", shape(A),  "\t",\
+              "Dim(f)  = ", shape(f)
 
 if __name__ == "__main__":
     from numpy import (linspace, exp, array, shape, matrix, matmul)

@@ -7,11 +7,9 @@ task    : computer assignment 04 question 1 (a. to b.)
 since   : Friday-23-03-2018
 """
 def absolute_error(steps, debug=False):
-    c_ddx = lambda x, h : ((-f(x+2*h)+16*f(x+h)-30*f(x)+16*f(x-h)-f(x-2*h))/(12*h*h))
+    fpp = lambda x, h : ((-f(x+2*h)+16*f(x+h)-30*f(x)+16*f(x-h)-f(x-2*h))/(12*h*h))
     f = lambda x : sqrt(1 - 2 * sin(x))
-    steps = logspace(-7, -1, num=100)
-    abs_err = [abs(c_ddx(0.0, step) + 1.0) for step in steps]
-
+    abs_err = [abs(fpp(0.0, step) + 1.0) for step in steps]
     if debug is True:
         print "DEBUG MODE: [ON] QUESTION 3 bi.)"
         print "i","\t" ,"Step Size", "\t", "Absolute Error"
@@ -22,7 +20,6 @@ def absolute_error(steps, debug=False):
 def round_off_error(steps, M=11.0, debug=False):
     machine_eps = finfo(float).eps
     rnd_err = [(18.0 * machine_eps)/(12.0*h*h) + M*(h**4) for h in steps]
-
     if debug is True:
         print "DEBUG MODE: [ON] QUESTION 3 bii.)"
         print "i","\t" ,"Step Size", "\t", "Round Error"
