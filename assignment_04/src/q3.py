@@ -19,7 +19,7 @@ def exact(steps, x=0.0, debug=False):
 
 def bound(steps, M=11.0, debug=False):
     machine_eps = finfo(float).eps
-    bound = [(18.0 * machine_eps)/(11.0*h*h) + M*(h**4) for h in steps]
+    bound = [(18.0 * machine_eps)/(12.0*(h**2)) + M*(h**4) for h in steps]
     if debug is True:
         print "DEBUG MODE: [ON] QUESTION 3 bii.)"
         print "i","\t" ,"Step Size", "\t", "Bound"

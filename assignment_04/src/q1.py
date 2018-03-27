@@ -6,7 +6,7 @@ module  : Applied Mathematics(Numerical Methods) TW324
 task    : computer assignment 04 question 1 (a. to b.)
 since   : Friday-23-03-2018
 """
-def question_a(steps, x=0.0 debug=False):
+def question_a(steps, x=0.0, debug=False):
     fp = lambda x, h : ((-f(x+2*h)+8*f(x+h)-8*f(x-h)+f(x-2*h))/(12*h))
     f = lambda x : sqrt(1 - 2 * sin(x))
     exact = [abs(fp(x, h) + 1.0) for h in steps]
