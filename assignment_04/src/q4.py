@@ -8,31 +8,16 @@ since   : Friday-23-03-2018
 """
 def trapezium(exact_I, H, x0=0.0, debug=True):
     apprx_I = array([h/2.0 * (exp(x0) + exp(h)) for h in H])
-    abs_err = array([abs(apI - exI) for apI, exI in zip(apprx_I, exact_I)])
-
-    if debug is True:
-        print "DEBUG MODE: [ON] [Question 4 trapezium method]"
-        print "Trapezium: |xc - x| = ", abs_err, "\n"
-    return abs_err
+    return array([abs(apI - exI) for apI, exI in zip(apprx_I, exact_I)])
 
 def midpoint(exact_I, H, x0=0.0, debug=True):
     W = array([x0 + (h / 2.0) for h in H])
     apprx_I = array([h * exp(w) for h, w in zip(H, W)])
-    abs_err = array([abs(apI - exI) for apI, exI in zip(apprx_I, exact_I)])
-
-    if debug is True:
-        print "DEBUG MODE: [ON] [Question 4 Midpoint Method]"
-        print "Midpoint: |xc - x| = ", abs_err, "\n"
-    return abs_err
+    return array([abs(apI - exI) for apI, exI in zip(apprx_I, exact_I)])
 
 def simpson(exact_I, H, x0=0.0, debug=True):
     apprx_I = array([h/3 * (exp(x0) + (4*exp(h/2.0)) + exp(h)) for h in H])
-    abs_err = array([abs(apI - exI) for apI, exI in zip(apprx_I, exact_I)])
-
-    if debug is True:
-        print "DEBUG MODE: [ON] [Question 4 Simpson's method]"
-        print "Simson: |xc - x| = ", abs_err, "\n"
-    return abs_err
+    return array([abs(apI - exI) for apI, exI in zip(apprx_I, exact_I)])
 
 def plot_abs_errs(abs_err_t, abs_err_m, abs_err_s):
     #loglog plot to display the error as function of the step size
@@ -47,6 +32,15 @@ def plot_abs_errs(abs_err_t, abs_err_m, abs_err_s):
     plt.legend(bbox_to_anchor=(.65, .9))
     plt.show()
 
+def debug(abs_err_s, abs_err_m, abs_err_t, debug=True):
+    if debug is True:
+        print "DEBUG MODE: [ON] [Question 4 Simpson's method]"
+        print "SIMPSONS METHOD\t\tMIDPOINT METHOD\t\tTRAPEZIUM METHOD"
+        for s, m, t in zip(abs_err_s, abs_err_m, abs_err_t):
+            print "{:.20f}".format(s), "{:.20f}".format(m), "{:.20f}".format(t)
+    else:
+        print "DEBUG MODE: [OFF] [Question 4 Simpson's method]"
+
 if __name__ == "__main__":
     from numpy import (exp, abs, array)
     import matplotlib.pyplot as plt
@@ -58,6 +52,7 @@ if __name__ == "__main__":
     abs_err_m = midpoint(exact_I, H)
     abs_err_s = simpson(exact_I, H)
 
+    debug(abs_err_s, abs_err_m, abs_err_t)
     plot_abs_errs(abs_err_t, abs_err_m, abs_err_s)
 
 else:
