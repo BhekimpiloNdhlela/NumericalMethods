@@ -7,16 +7,23 @@ task    : computer assignment 04 question 4
 since   : Friday-23-03-2018
 """
 def trapezium(abs_err, exact_I, debug=True):
+    h = [1.0, 0.1, 0.01]
+    abs_err_t = [0, 0, 0]
     if debug is True:
         print "DEBUG MODE: [ON] [Question 4 trapezium method]"
+        return abs_err_t
 
 def midpoint(abs_err, exact_I, debug=True):
+    abs_err_m = [0, 0, 0]
     if debug is True:
         print "DEBUG MODE: [ON] [Question 4 Midpoint Method]"
+    return abs_err_m
 
 def simpson(abs_err, exact_I, debug=True):
+    abs_err_s = [0, 0, 0]
     if debug is True:
         print "DEBUG MODE: [ON] [Question 4 Simpson's method]"
+    return abs_err_s
 
 def plot_abs_errs(abs_err_t, abs_err_m, abs_err_s):
     #loglog plot to display the error as function of the step size
