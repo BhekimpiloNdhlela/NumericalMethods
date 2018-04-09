@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 def solution(e, k):
     f = lambda u, v : (ln(u**e) / v) + u - v - k
     u = linspace(1., 20., 1000)
@@ -11,7 +10,7 @@ def solution(e, k):
 def plot_implicit_solution(u,v, f_vals):
     plt.plot(u, f_vals, "k-", label="f(u)")
     plt.plot(v, f_vals, "r-", label="f(v)")
-    plt.title("IMPLICIT SOLUTIOIN CURVE")
+    plt.title("IMPLICIT SOLUTIOIN CURVE (NOTE: WITH negative lambda)")
     plt.xlabel("v")
     plt.ylabel("u")
     plt.legend(bbox_to_anchor=(.65, .9))
