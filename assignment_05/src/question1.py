@@ -24,12 +24,12 @@ def composite_simpson(exact_I, H, x0=0., debug=True):
 
 def debug(abs_err_ct, abs_err_cm, abs_err_cs, debug=True):
     if debug is True:
-        print "DEBUG MODE: [ON] [Question 4 Simpson's method]"
+        print "DEBUG MODE: [ON] [Question 1 Simpson's method]"
         print "SIMPSONS METHOD\t\tMIDPOINT METHOD\t\tTRAPEZIUM METHOD"
         for s, m, t in zip(abs_err_cs, abs_err_cm, abs_err_ct):
             print "{:.20f}".format(s),"{:.20f}".format(m),"{:.20f}".format(t)
     else:
-        print "DEBUG MODE: [OFF] [Question 4 Simpson's method]"
+        print "DEBUG MODE: [OFF] [Question 1]"
 
 def plot_abs_errs(abs_err_ct, abs_err_cm, abs_err_cs):
     #loglog plot to display the error as function of the step size
@@ -48,12 +48,8 @@ if __name__ == "__main__":
     from numpy import (exp, abs, array)
     import matplotlib.pyplot as plt
     from scipy import integrate
-    from math import (pi, sin, cos)
 
     H         = array([1., .1, .01])
-
-    # edit code here to fit for ass01 use scipy integrate instead of [e^x - 1]
-    # on int|_1^0 { e^sinpix dx }
     exact_I   = array([exp(h) - 1 for h in H])
 
     abs_err_ct = composite_trapezium(exact_I, H)
@@ -65,4 +61,4 @@ if __name__ == "__main__":
 
 else:
     from sys import exit
-    exit("USAGE: python question5.py")
+    exit("USAGE: python question1.py")
