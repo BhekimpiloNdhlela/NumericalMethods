@@ -32,7 +32,7 @@ def fejer(N, dom=[-1,1]):
     c = .5*(b-a)*c;
 
     return (x, c)
-
-x, c = fejer(5, [-1, 1])
-print 'x = ', x
-print 'c = ', c
+if __name__ == "__main__":
+    x, c = fejer(5, [-1, 1])
+    print 'x = ', x
+    print 'c = ', c

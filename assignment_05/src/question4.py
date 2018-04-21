@@ -8,7 +8,9 @@ since   : Friday-27-04-2018
 """
 
 if __name__ == "__main__":
-
+    from fejer import fejer
+    from gauss import gauss
+    print "import successfull"
 else:
     from sys import exit
     exit("USAGE: python question1.py")

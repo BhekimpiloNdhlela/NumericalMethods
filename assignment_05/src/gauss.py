@@ -43,7 +43,7 @@ def gauss(N, dom=[-1,1]):
 
     return (x, c)
 
-
-x, c = gauss(5, [-1, 1])
-print 'x = ', x
-print 'c = ', c
+if __name__ == "__main__":
+    x, c = fejer(5, [-1, 1])
+    print 'x = ', x
+    print 'c = ', c
