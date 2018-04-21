@@ -6,66 +6,64 @@ module  : Applied Mathematics(Numerical Methods) TW324
 task    : computer assignment 05 question 2
 since   : Friday-27-04-2018
 """
-def composite_trapezium(exact_I, H, x0=0., debug=True):
-    apprx_I = array([h/2. * (exp(x0) + exp(h)) for h in H])
-    # return absolute Errors for composite_trapezium
-    return array([abs(apI - exI) for apI, exI in zip(apprx_I, exact_I)])
 
-def composite_midpoint(exact_I, H, x0=0., debug=True):
-    W = array([x0 + (h / 2.0) for h in H])
-    apprx_I = array([h * exp(w) for h, w in zip(H, W)])
-    # return absolute Errors for composite_midpoint
-    return array([abs(apI - exI) for apI, exI in zip(apprx_I, exact_I)])
+def composite_midpoint(f, m, a=0.0, b=1.0):
+    h = (b - a) / m
+    sigma = sum([f((a + h / 2.0) + i*h) for i in xrange(1, m + 1)])
+    return sigma * h
 
-def composite_simpson(exact_I, H, x0=0., debug=True):
-    apprx_I = array([h/6.*(exp(x0)+(4.*exp(h/2.))+exp(h)) for h in H])
-    # return absolute Errors for composite_simpson
-    return array([abs(apI - exI) for apI, exI in zip(apprx_I, exact_I)])
+def composite_trapezium(f, m, a=0.0, b=1.0):
+    h, hold = (b - a) / m, 0.5 * f(a) + 0.5 * f(b)
+    sigma = hold + sum([ f(a + i * h) for i in xrange(1, m + 1)])
+    return sigma * h
 
-def debug(abs_err_ct, abs_err_cm, abs_err_cs, debug=True):
-    if debug is True:
-        print "DEBUG MODE: [ON] [Question 4 Simpson's method]"
-        print "SIMPSONS METHOD\t\tMIDPOINT METHOD\t\tTRAPEZIUM METHOD"
-        for s, m, t in zip(abs_err_cs, abs_err_cm, abs_err_ct):
-            print "{:.20f}".format(s),"{:.20f}".format(m),"{:.20f}".format(t)
+def composite_simpson(f, m, a=0.0, b=1.0, k=0.0):
+    h = (b - a) / m; x = a + h
+    for i in xrange(1, m / 2 + 1):
+        k = k + 4 * f(x); x = x + 2 * h
+    x = a + 2 * h
+    for i in xrange(1, m / 2):
+        k = k + 2 * f(x); x = x + 2 * h
+    return (h / 3) * (f(a) + f(b) + k)
+
+def debug(abs_err_cm, abs_err_ct, abs_err_cs, debug=True):
+    if debug == True:
+        print("DEBUG MODE STATUS = <ON>")
+        print("Composite Midpoint\tComposite trapezium\tComposite_Simpson")
+        for m, t, s in zip(abs_err_cm, abs_err_ct, abs_err_cs):
+            print "{:10f}".format(m), "\t\t{:10f}".format(t), "\t\t{:10f}".format(s)
     else:
-        print "DEBUG MODE: [OFF] [Question 1]"
+        print("DEBUG MODE STATUS = <OFF>")
 
-def plot_abs_errs(abs_err_ct, abs_err_cm, abs_err_cs):
-    #loglog plot to display the error as function of the step size
-    plt.title("|xc-x| of: The Midpoint, Simpson & Trapezium Methods against h")
+def plot_abs_errs(abs_err_cm, abs_err_ct, abs_err_cs):
+    plt.title("|xc-x| of: The Composite Midpoint, Simpson & Trapezium Methods against h")
     plt.ylabel("Composite Midpoint vs Composite Simpson vs Composite Trapezium")
-    plt.xlabel("h")
-    plt.yscale('log')
+    plt.xlabel("Number of Points")
     plt.xscale('log')
-    plt.plot([1., .1, .01], abs_err_ct, "k-", label="Composite Trapezium")
-    plt.plot([1., .1, .01], abs_err_cm, "r-", label="Composite Midpoint")
-    plt.plot([1., .1, .01], abs_err_cs, "g-", label="Composite Simpson")
-    plt.legend(bbox_to_anchor=(.65, .9))
+    plt.yscale('log')
+    plt.plot(M, abs_err_cm, 'k-', label="Composite Midpoint")
+    plt.plot(M, abs_err_ct, 'r-', label="Composite Trapezium")
+    plt.plot(M, abs_err_cs, 'b-', label="Composite Simpson")
+    plt.legend(bbox_to_anchor=(.95, .9))
     plt.show()
 
+# **************************************************************** #
+import matplotlib.pyplot as plt
+from math import (exp, pi, sin)
+from scipy import (integrate, special)
+from numpy import (abs, array, linspace)
+
+f = lambda x : exp(sin(2 * pi * x))
+I = integrate.quad(f, 0.0, 1.0)[0]
+M = linspace(3, 19, 5)
+# **************************************************************** #
+
 if __name__ == "__main__":
-    from numpy import (exp, abs, array)
-    import matplotlib.pyplot as plt
-    from scipy.integrate import quad
-    from math import (exp, pi, sin, cos)
-
-    H         = array([1., .1, .01])
-
-    # edit code here to fit for ass01 use scipy integrate instead of [e^x - 1]
-    # on int|_1^0 { e^sinpix dx }
-    #exact_I   = array([exp(h) - 1 for h in H])
-    integral = lambda x: exp(sin(pi*x))
-    exact_I = quad(integral, 0, 1)
-    print exact_I
-
-    #abs_err_ct = composite_trapezium(exact_I, H)
-    #abs_err_cm = composite_midpoint(exact_I, H)
-    #abs_err_cs = composite_simpson(exact_I, H)
-
-    #debug(abs_err_ct, abs_err_cm, abs_err_cs)
-    #plot_abs_errs(abs_err_ct, abs_err_cm, abs_err_cs)
-
+    abs_err_cm = [abs(composite_midpoint(f, int(m)) - I) for m in M]
+    abs_err_ct = [abs(composite_trapezium(f, int(m)) - I) for m in M]
+    abs_err_cs = [abs(composite_simpson(f, int(m)) - I) for m in M]
+    debug(abs_err_cm, abs_err_ct, abs_err_cs, debug=True)
+    plot_abs_errs(abs_err_cm, abs_err_ct, abs_err_cs)
 else:
     from sys import exit
     exit("USAGE: python question2.py")
