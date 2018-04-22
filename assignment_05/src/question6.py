@@ -7,24 +7,14 @@ task    : computer assignment 05 question 1
 since   : Friday-27-04-2018
 """
 
-def question_a(n, G=9.81, C2=1.0/1000.0, t=10.0, debug=True):
+def question_a(n, G=9.81, C2=1.0/1000.0, debug=True):
     time = linspace(0.0, 10.0, n)
-    h_size = time[1] - time[0]
+    h = time[1] - time[0] #s tep size
     y = zeros(n, dtype=float)
-    # consult Dr. Hale regarding the y(0) = ?
-    # for progress sake i will assume y(0) = 0
     f_exact = lambda t : sqrt(G/C2) * tanh(t * sqrt(G*C2))
     f_dx_dy = lambda t : G - C2 * (t**2)
-    yt10 = f_exact(10)
-    y = [y[i-1] + h_size * f_dx_dy(t) for i, t in enumerate(time, start=1)]
-
-    # also need to get clarity on what error is to be computed (abs_err, local/ global)
-    # and how the each implies in the question paper
-
-    """
-    compute error here
-    """
-    return y
+    y = [y[i-1] + h * f_dx_dy(t) for i, t in enumerate(time, start=1)]
+    return (y[-1], f_exact(10))
 
 def question_b(debug=False):
     pass
@@ -45,10 +35,10 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
     from math import (sqrt, tanh)
 
-    N = [10, 100, 1000]
-    for n in N:
-        plot_computed_error(n, question_a(n))
-    #question_b()
+
+    abs_errors = [question_a(n) for n in [10, 100, 1000, 2000]]
+    print abs_errors
+    question_b()
 else:
     from sys import exit
     exit("USAGE: python question1.py")
