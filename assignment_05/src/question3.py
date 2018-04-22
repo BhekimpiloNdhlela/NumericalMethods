@@ -46,14 +46,6 @@ def question_c(r0, r1, f0, f1, N=5, debug=True):
         print("Debug Mode: [OFF] Question 3(b)")
     return e0, e1
 
-def debug_on(matrix, debug_message):
-    print(debug_message)
-    for row in matrix:
-        print "[",
-        for element in row:
-            print "{:15f}   ".format(element),
-        print("]")
-
 def romberg_abs_error(r, I):
     e = zeros((len(r), len(r)))
     for i in xrange(0, len(e)):
@@ -63,6 +55,14 @@ def romberg_abs_error(r, I):
             else:
                 e[i][j] = abs(r[i][j] - I)
     return e
+
+def debug_on(matrix, debug_message):
+    print(debug_message)
+    for row in matrix:
+        print "[",
+        for element in row:
+            print "{:15f}   ".format(element),
+        print("]")
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
