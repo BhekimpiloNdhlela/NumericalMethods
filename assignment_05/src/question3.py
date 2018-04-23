@@ -7,20 +7,6 @@ task    : computer assignment 05 question 3
 since   : Friday-27-04-2018
 """
 
-def romberg(f,a,b,n):
-    # this code block or function romberg was aquired from the course website
-    h=(b-a)/2.**linspace(0,n-1,n)
-    r = zeros((n,n))
-    r[0,0]=(b-a)*(f(a)+f(b))/2.
-    for j in xrange(2,n+1):
-        subtotal = 0.
-        for i in xrange(1,2**(j-2)+1):
-            subtotal = subtotal + f(a+(2*i-1)*h[j-1])
-        r[j-1,0] = r[j-2,0]/2. + h[j-1]*subtotal
-        for k in xrange(2,j+1):
-            r[j-1,k-1] = (4**(k-1)*r[j-1,k-2]-r[j-2,k-2])/(4.**(k-1)-1)
-    return r
-
 def question_b(f0, f1, debug=True):
     r0, r1 = romberg(f0, 0.0, 1.0, 5), romberg(f1, 0.0, 1.0, 5)
     if debug == True:
@@ -65,6 +51,7 @@ def debug_on(matrix, debug_message):
         print("]")
 
 if __name__ == "__main__":
+    from romberg import romberg
     import matplotlib.pyplot as plt
     from math import (exp, pi, sin)
     from scipy import (integrate, special)

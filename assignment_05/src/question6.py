@@ -28,13 +28,11 @@ def plot_computed_error(N, error):
     plt.plot(linspace(0,10, N), error, 'k-')
     plt.show()
 
-
 if __name__ == "__main__":
     from numpy import (linspace, array, zeros)
     from scipy import (integrate, special)
     import matplotlib.pyplot as plt
     from math import (sqrt, tanh)
-
 
     abs_errors = [question_a(n) for n in [10, 100, 1000, 2000]]
     print abs_errors
