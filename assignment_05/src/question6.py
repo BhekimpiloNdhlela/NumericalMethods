@@ -9,12 +9,14 @@ since   : Friday-27-04-2018
 
 def question_a(n, G=9.81, C2=1.0/1000.0, debug=True):
     time = linspace(0.0, 10.0, n)
-    h = time[1] - time[0] #s tep size
+    h = time[1] - time[0] # step size
     y = zeros(n, dtype=float)
-    f_exact = lambda t : sqrt(G/C2) * tanh(t * sqrt(G*C2))
-    f_dx_dy = lambda t : G - C2 * (t**2)
-    y = [y[i-1] + h * f_dx_dy(t) for i, t in enumerate(time, start=1)]
-    return (y[-1], f_exact(10))
+    f = lambda t : sqrt(G/C2) * tanh(t * sqrt(G*C2))
+    dfdy = lambda t : G - C2 * (t**2)
+    #I = integrate.quad(dfdy, 0, 10)[1]
+
+    y = [y[i-1] + h * dfdy(t) for i, t in enumerate(time, start=1)]
+    return (y[-1], f(10))
 
 def question_b(debug=False):
     pass
@@ -34,9 +36,8 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
     from math import (sqrt, tanh)
 
-    abs_errors = [question_a(n) for n in [10, 100, 1000, 2000]]
+    abs_errors = [question_a(n) for n in [10, 100, 1000]]
     print abs_errors
-    question_b()
 else:
     from sys import exit
     exit("USAGE: python question1.py")

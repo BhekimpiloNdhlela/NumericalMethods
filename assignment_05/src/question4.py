@@ -32,10 +32,8 @@ if __name__ == "__main__":
     if debug == True:
         print("Debug Mode Status: <ON>")
         print("exact_I = {:.15f}".format(float(I)))
-
         print"gauss_I = {:.15f}".format(float(gauss_I)), "\t",
         print"abs_err_gauss = {:.15f}".format(float(abs_err_gauss))
-
         print"fejer_I = {:.15f}".format(float(fejer_I)), "\t",
         print"abs_err_fejer = {:.15f}".format(float(abs_err_fejer))
     else:

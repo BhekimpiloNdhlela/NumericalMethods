@@ -1,8 +1,6 @@
 """
     disclaimer i acquired this function the course website or
     directly from: http://blue.math.buffalo.edu/sauer2py/romberg.py
-
-
 """
 # Program 5.1 Romberg integration
 # Translated to Python by JR 2/17/2012.
