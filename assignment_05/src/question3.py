@@ -47,7 +47,7 @@ def debug_on(matrix, debug_message):
     for row in matrix:
         print "[",
         for element in row:
-            print "{:15f}   ".format(element),
+            print "{:.20f}   ".format(element),
         print("]")
 
 if __name__ == "__main__":

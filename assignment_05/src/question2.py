@@ -8,23 +8,33 @@ since   : Friday-27-04-2018
 """
 
 def composite_midpoint(f, m, a=0.0, b=1.0):
-    h = (b - a) / m
-    sigma = sum([f((a + h / 2.0) + i*h) for i in xrange(1, m)])
-    return sigma * h
+    h      = (b - a) / m
+    result = h * sum([f((a+h/2.0) + i*h) for i in xrange(1, m+1)])
+    return result
 
 def composite_trapezium(f, m, a=0.0, b=1.0):
-    h, hold = (b - a) / m, 0.5 * f(a) + 0.5 * f(b)
-    sigma = hold + sum([f(a + i * h) for i in xrange(1, m)])
-    return sigma * h
+    h      = (b - a) / m
+    result = h/2.0 * ( f(a) + f(b) + 2 * sum([ f(a + i * h) for i in xrange(1, m)]))
+    return result
 
 def composite_simpson(f, m, a=0.0, b=1.0, k=0.0):
-    h = (b - a) / m; x = a + h
-    for i in xrange(1, m / 2 + 1):
-        k = k + 4 * f(x); x = x + 2 * h
-    x = a + 2 * h
-    for i in xrange(1, m / 2):
-        k = k + 2 * f(x); x = x + 2 * h
-    return (h / 3) * (f(a) + f(b) + k)
+    sum = 0.0
+    sum += f(a)
+    sum += f(b)
+    h=(b-a)/(2*m) #width of segments
+    oddSum = float()
+    evenSum = float()
+    for i in xrange(1, m):
+        oddSum += f(2*h*i+a)
+
+    sum += oddSum * 2
+
+    for i in xrange(1, m+1):
+        evenSum += f(h*(-1+2*i)+a)
+    sum += evenSum * 4
+
+    return sum * h/3
+
 
 def debug(abs_err_cm, abs_err_ct, abs_err_cs, debug=True):
     if debug == True:
@@ -39,7 +49,7 @@ def plot_abs_errs(abs_err_cm, abs_err_ct, abs_err_cs):
     plt.title("|xc-x| of: The Composite Midpoint, Simpson & Trapezium Methods against h")
     plt.ylabel("Composite Midpoint vs Composite Simpson vs Composite Trapezium")
     plt.xlabel("Number of Points")
-    plt.xscale('log')
+    plt.xscale('linear')
     plt.yscale('log')
     plt.plot(M, abs_err_cm, 'k-', label="Composite Midpoint")
     plt.plot(M, abs_err_ct, 'r-', label="Composite Trapezium")
