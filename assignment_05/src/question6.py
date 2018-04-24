@@ -19,7 +19,7 @@ def question_a(dfdt, n, w0, I, G=9.81, C2=1.0/1000.0, debug=True):
 def explicit_trapezium(f, n, w0, I, G=9.81, C2=1.0/1000.0, debug=True):
     T = linspace(0.0, 10.0, n)
     h = 10.0/float(n) # step size
-    w, wt = zeros(n, dtype=float), zeros(n, dtype=float)
+    w, wt = zeros(n+1, dtype=float), zeros(n+1, dtype=float)
     w[0] = w0
     for i in xrange(1, n+1):
         wt[i] = w[i-1] + h * f(w[i-1])
@@ -29,12 +29,12 @@ def explicit_trapezium(f, n, w0, I, G=9.81, C2=1.0/1000.0, debug=True):
 def explicit_midpoint(f, n, w0, I, G=9.81, C2=1.0/1000.0, debug=True):
     T = linspace(0.0, 10.0, n)
     h = 10.0/float(n) # step size
-    w, wt = zeros(n, dtype=float), zeros(n, dtype=float)
+    w, wt = zeros(n+1, dtype=float), zeros(n+1, dtype=float)
 
     w[0] = w0
     for i in xrange(1, n+1):
-        wt[i] = w[i-1] + 0.5 * h * f(w[i])
-        w[i]  = w[i-1] + 0.5*h * f(wt[i] + h/2.0 * f(wt[i]))
+        wt[i] = w[i-1] + 0.5 * h * f(w[i-1])
+        w[i]  = w[i-1] + h * f(wt[i])
     return w[-1]
 
 def debug_on(errors, N, I, debug_message):
