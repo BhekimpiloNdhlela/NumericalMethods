@@ -9,12 +9,12 @@ since   : Friday-27-04-2018
 
 def composite_midpoint(f, m, a=0.0, b=1.0):
     h = (b - a) / m
-    sigma = sum([f((a + h / 2.0) + i*h) for i in xrange(1, m + 1)])
+    sigma = sum([f((a + h / 2.0) + i*h) for i in xrange(1, m)])
     return sigma * h
 
 def composite_trapezium(f, m, a=0.0, b=1.0):
     h, hold = (b - a) / m, 0.5 * f(a) + 0.5 * f(b)
-    sigma = hold + sum([f(a + i * h) for i in xrange(1, m + 1)])
+    sigma = hold + sum([f(a + i * h) for i in xrange(1, m)])
     return sigma * h
 
 def composite_simpson(f, m, a=0.0, b=1.0, k=0.0):
@@ -57,7 +57,6 @@ f = lambda x : exp(sin(2 * pi * x))
 I = integrate.quad(f, 0.0, 1.0)[0]
 M = linspace(3, 19, 5)
 # **************************************************************** #
-
 if __name__ == "__main__":
     abs_err_cm = [abs(composite_midpoint(f, int(m)) - I) for m in M]
     abs_err_ct = [abs(composite_trapezium(f, int(m)) - I) for m in M]
