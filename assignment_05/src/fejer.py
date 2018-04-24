@@ -1,3 +1,4 @@
+#!/usr/bin/python
 #   X = FEJER(N) returns N Chebyshev points X in (-1,1).
 #
 #   X, W = FEJER(N) returns also a vector W of weights for

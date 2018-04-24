@@ -1,3 +1,4 @@
+#!/usr/bin/python
 #   X = GAUSS(N) returns N Legendre points X in (-1,1).
 #
 #   X, C = GAUSS(N) returns also a vector C of weights for

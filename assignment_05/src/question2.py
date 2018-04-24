@@ -14,7 +14,7 @@ def composite_midpoint(f, m, a=0.0, b=1.0):
 
 def composite_trapezium(f, m, a=0.0, b=1.0):
     h, hold = (b - a) / m, 0.5 * f(a) + 0.5 * f(b)
-    sigma = hold + sum([ f(a + i * h) for i in xrange(1, m + 1)])
+    sigma = hold + sum([f(a + i * h) for i in xrange(1, m + 1)])
     return sigma * h
 
 def composite_simpson(f, m, a=0.0, b=1.0, k=0.0):

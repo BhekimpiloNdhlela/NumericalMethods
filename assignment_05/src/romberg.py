@@ -1,5 +1,6 @@
+#!/usr/bin/python
 """
-    disclaimer i acquired this function the course website or
+    disclaimer: I acquired this function the course website or
     directly from: http://blue.math.buffalo.edu/sauer2py/romberg.py
 """
 # Program 5.1 Romberg integration
@@ -23,7 +24,6 @@ def romberg(f,a,b,n):
 		for k in range(2,j+1):
 			r[j-1,k-1] = (4**(k-1)*r[j-1,k-2]-r[j-2,k-2])/(4.**(k-1)-1)
 	return r
-
 if __name__ == "__main__":
     f = lambda x: sin(1.7*x)-x**2.5
     set_printoptions(precision=5)
