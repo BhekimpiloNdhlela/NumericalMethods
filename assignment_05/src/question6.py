@@ -7,26 +7,26 @@ task    : computer assignment 05 question 1
 since   : Friday-27-04-2018
 """
 
-def question_a(dfdt, n, w0, I, G=9.81, C2=1.0/1000.0, debug=True):
+def question_a(dfdt, n, w0, I, G=9.81, C2=1.0/1000.0):
     T = linspace(0.0, 10.0, n)
     h = 10.0/float(n) # step size
     w = zeros(n+1, dtype=float)
     w[0] = w0
-    for i in xrange(1,n+1):
+    for i in xrange(1, n+1):
         w[i] = w[i-1] + h * dfdt(w[i-1])
-    return w[-1]
+    return abs(w[-1] - I)
 
-def explicit_trapezium(f, n, w0, I, G=9.81, C2=1.0/1000.0, debug=True):
+def explicit_trapezium(f, n, w0, I, G=9.81, C2=1.0/1000.0):
     T = linspace(0.0, 10.0, n)
     h = 10.0/float(n) # step size
     w, wt = zeros(n+1, dtype=float), zeros(n+1, dtype=float)
     w[0] = w0
     for i in xrange(1, n+1):
         wt[i] = w[i-1] + h * f(w[i-1])
-        w[i]  = w[i-1] + h * f(wt[i-1] + h/2 * f(wt[i]))
-    return w[-1]
+        w[i]  = w[i-1] + h * f(wt[i-1] + h/2.0 * f(wt[i]))
+    return abs(w[-1] - I)
 
-def explicit_midpoint(f, n, w0, I, G=9.81, C2=1.0/1000.0, debug=True):
+def explicit_midpoint(f, n, w0, I, G=9.81, C2=1.0/1000.0):
     T = linspace(0.0, 10.0, n)
     h = 10.0/float(n) # step size
     w, wt = zeros(n+1, dtype=float), zeros(n+1, dtype=float)
@@ -35,22 +35,30 @@ def explicit_midpoint(f, n, w0, I, G=9.81, C2=1.0/1000.0, debug=True):
     for i in xrange(1, n+1):
         wt[i] = w[i-1] + 0.5 * h * f(w[i-1])
         w[i]  = w[i-1] + h * f(wt[i])
-    return w[-1]
+    return abs(w[-1] - I)
 
 def debug_on(errors, N, I, debug_message):
-    print("Method Used: ", debug_message)
+    print "\n************************************************************"
+    print "Method Used: ", debug_message
     print "The Exact Value I = {:.20f}".format(float(I))
     for error, n in zip(errors, N):
         print "@ n = ", n, "the approximation = {:.20f}".format(error)
+    print "************************************************************"
 
-def plot_computed_error(N, error):
+def plot_computed_error(N, error, error1=None, error2=None):
     plt.title("")
     plt.ylabel("")
     plt.xlabel("")
     plt.xscale('log')
     plt.yscale('log')
-    plt.plot(linspace(0,10, N), error, 'k-')
-    plt.show()
+    if error1 == None and error2 == None:
+        plt.plot(linspace(0,10, N), error, 'k-')
+        plt.show()
+    else:
+        plt.plot(linspace(0,10, N), error , 'k-')
+        plt.plot(linspace(0,10, N), error1, 'b-')
+        plt.plot(linspace(0,10, N), error2, 'r-')
+        plt.show()
 
 if __name__ == "__main__":
     from numpy import (linspace, array, zeros)
@@ -60,8 +68,7 @@ if __name__ == "__main__":
 
     dfdy = lambda t : 9.81 - (1.0/1000.0) * (t**2)
     f = lambda t : sqrt(9.81/(1.0/1000.0)) * tanh(t * sqrt(9.81*(1.0/1000.0)))
-    I = f(10)
-    N = [10, 100, 1000]
+    I, N = f(10), [10, 100, 1000]
 
     # get absolute error using Euler's meth6od
     abs_errors_eulr = [question_a(dfdy, n, 0.0, I) for n in N]

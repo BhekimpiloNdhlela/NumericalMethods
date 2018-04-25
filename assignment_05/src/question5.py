@@ -3,13 +3,9 @@
 author  : Bhekimpilo Ndhlela
 author  : 18998712
 module  : Applied Mathematics(Numerical Methods) TW324
-task    : computer assignment 05 question 1
+task    : computer assignment 05 question 5
 since   : Friday-27-04-2018
 """
-
-from scipy import (integrate, special)
-from math import (sqrt, exp, cos, pi)
-from gauss import gauss
 
 def gauss_legendre(n=5.0):
     X, C = gauss(5, [-1, 1])
@@ -21,6 +17,11 @@ def gauss_chebyshev(n=5.0):
     return (pi * (sum([exp(x) for x in X]))) / n
 
 if __name__ == "__main__":
+
+    from scipy import (integrate, special)
+    from math import (sqrt, exp, cos, pi)
+    from gauss import gauss
+
     exact_integral = integrate.quad(lambda x : exp(x) / sqrt(1 - x**2), -1, 1)[0]
     gauss_chebyshev, gause_legendre = gauss_chebyshev(), gauss_legendre()
 

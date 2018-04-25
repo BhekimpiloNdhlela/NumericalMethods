@@ -9,21 +9,17 @@ since   : Friday-27-04-2018
 
 def composite_midpoint(f, m, a=0.0, b=1.0):
     h      = (b - a) / m
-    result = h * sum([f((a+h/2.0) + i*h) for i in xrange(1, m+1)])
-    return result
+    return h * sum([f((a+h/2.0) + i*h) for i in xrange(1, m+1)])
 
 def composite_trapezium(f, m, a=0.0, b=1.0):
     h      = (b - a) / m
-    result = h/2.0 * ( f(a) + f(b) + 2 * sum([ f(a + i * h) for i in xrange(1, m)]))
-    return result
+    return h/2.0 * (f(a) + f(b) + 2 * sum([ f(a + i * h) for i in xrange(1, m)]))
 
-def composite_simpson(f, m, a=0.0, b=1.0, k=0.0):
-    sum = float()
-    sum += f(a)
-    sum += f(b)
-    h = (b-a) / (2*m)
-    oddSum = float()
-    evenSum = float()
+def composite_simpson(f, m, a=0.0, b=1.0):
+    sum = float(f(a) + f(b))
+    h   = (b-a) / (2*m)
+    oddSum, evenSum = 0.0, 0.0
+
     for i in range(1, m): #evaluating all odd values of n (not first and last)
         oddSum += f(2 * h * i + a)
     sum += oddSum * 2
@@ -37,9 +33,9 @@ def debug(abs_err_cm, abs_err_ct, abs_err_cs, debug=True):
         print("DEBUG MODE STATUS = <ON>")
         print("Composite Midpoint\tComposite trapezium\tComposite_Simpson")
         for m, t, s in zip(abs_err_cm, abs_err_ct, abs_err_cs):
-            print "{:10f}".format(m), "\t\t{:10f}".format(t), "\t\t{:10f}".format(s)
-    else:
-        print("DEBUG MODE STATUS = <OFF>")
+                print "{:.20f}     ".format(m), \
+                      "{:.20f}     ".format(t), \
+                      "{:.20f}     ".format(s)
 
 def plot_abs_errs(abs_err_cm, abs_err_ct, abs_err_cs):
     plt.title("|xc-x| of: The Composite Midpoint, Simpson & Trapezium Methods against h")
