@@ -29,8 +29,8 @@ if __name__ == "__main__":
     if debug == True:
         print("Debug Mode Status: <ON>")
         print("Exact Integral  = {:.20f}".format(float(exact_integral)))
-        print("Gauss Chebyshev = {:.20f}".format(float(gauss_chebyshev)))
-        print("Gauss Legendre  = {:.20f}".format(float(gause_legendre)))
+        print("Gauss Chebyshev = {:.20f}".format(abs(float(gauss_chebyshev) - float(exact_integral))))
+        print("Gauss Legendre  = {:.20f}".format(abs(float(gause_legendre) - float(exact_integral))))
 else:
     from sys import exit
     exit("USAGE: python question1.py")

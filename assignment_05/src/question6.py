@@ -3,7 +3,7 @@
 author  : Bhekimpilo Ndhlela
 author  : 18998712
 module  : Applied Mathematics(Numerical Methods) TW324
-task    : computer assignment 05 question 1
+task    : computer assignment 05 question 6
 since   : Friday-27-04-2018
 """
 
@@ -81,6 +81,11 @@ if __name__ == "__main__":
     # get absolute error using explicit midpoint method
     abs_errors_midp = [explicit_midpoint(dfdy, n, 0.0, I) for n in N]
     debug_on(abs_errors_midp, N, I, "Explicit Midpoint Method")
+
+    # plot the error for question 6(a.)
+    plot_computed_error(N, abs_errors_eulr)
+    # plot the error for question 6(a.) and 6(b.) on the same cartesion plane
+    plot_computed_error(N, abs_errors_eulr, abs_errors_midp, abs_errors_trap)
 else:
     from sys import exit
-    exit("USAGE: python question1.py")
+    exit("USAGE: python question6.py")

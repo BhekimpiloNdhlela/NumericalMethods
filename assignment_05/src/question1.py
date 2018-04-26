@@ -9,7 +9,7 @@ since   : Friday-27-04-2018
 
 def composite_midpoint(f, m, a=0.0, b=1.0):
     h      = (b - a) / m
-    return h * sum([f((a+h/2.0) + i*h) for i in xrange(1, m+1)])
+    return h * sum([f((a+h/2.0) + i*h) for i in xrange(0, m)])
 
 def composite_trapezium(f, m, a=0.0, b=1.0):
     h      = (b - a) / m
