@@ -8,12 +8,12 @@ since   : Friday-27-04-2018
 """
 
 def composite_midpoint(f, m, a=0.0, b=1.0):
-    h      = (b - a) / m
-    return h * sum([f((a+h/2.0) + i*h) for i in xrange(0, m)])
+    h = (b-a)/m
+    return h*sum([f((a+h/2.0) + i*h) for i in xrange(0, m)])
 
 def composite_trapezium(f, m, a=0.0, b=1.0):
-    h      = (b - a) / m
-    return h/2.0 * (f(a) + f(b) + 2 * sum([ f(a + i * h) for i in xrange(1, m)]))
+    h = (b - a) / m
+    return h/2.0*(f(a)+f(b)+2*sum([f(a+i*h) for i in xrange(1,m)]))
 
 def composite_simpson(f, m, a=0.0, b=1.0):
     sum = float(f(a) + f(b))
@@ -38,7 +38,8 @@ def debug(abs_err_cm, abs_err_ct, abs_err_cs, debug=True):
                       "{:.20f}     ".format(s)
 
 def plot_abs_errs(abs_err_cm, abs_err_ct, abs_err_cs):
-    plt.title("|xc-x| of: The Composite Midpoint, Simpson & Trapezium Methods against h")
+    plt.title("|xc-x| of: The Composite Midpoint, Simpson & Trapezium Methods \
+              against h")
     plt.ylabel("Composite Midpoint vs Composite Simpson vs Composite Trapezium")
     plt.xlabel("Number of Points")
     plt.xscale('log')
@@ -49,18 +50,16 @@ def plot_abs_errs(abs_err_cm, abs_err_ct, abs_err_cs):
     plt.legend(bbox_to_anchor=(.65, .9))
     plt.show()
 
-# ******************************************* #
-from numpy import (abs, array, linspace)
-from scipy import (integrate, special)
-import matplotlib.pyplot as plt
-from math import exp
-
-f = lambda x : exp(x)
-I = integrate.quad(f, 0.0, 1.0)[0]
-M = linspace(11, 101, 10)
-# ******************************************* #
-
 if __name__ == "__main__":
+    from numpy import (abs, array, linspace)
+    from scipy import (integrate, special)
+    import matplotlib.pyplot as plt
+    from math import exp
+
+    f = lambda x : exp(x)
+    I = integrate.quad(f, 0.0, 1.0)[0]
+    M = linspace(11, 101, 10)
+
     abs_err_cm = [abs(composite_midpoint(f, int(m)) - I) for m in M]
     abs_err_ct = [abs(composite_trapezium(f, int(m))- I) for m in M]
     abs_err_cs = [abs(composite_simpson(f, int(m))  - I) for m in M]

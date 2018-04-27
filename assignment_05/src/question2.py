@@ -8,11 +8,11 @@ since   : Friday-27-04-2018
 """
 
 def composite_midpoint(f, m, a=0.0, b=1.0):
-    h      = (b - a) / m
+    h = (b - a) / m
     return h * sum([f((a+h/2.0) + i*h) for i in xrange(0, m)])
 
 def composite_trapezium(f, m, a=0.0, b=1.0):
-    h      = (b - a) / m
+    h = (b - a) / m
     return h/2.0 * (f(a) + f(b) + 2 * sum([ f(a + i * h) for i in xrange(1, m)]))
 
 def composite_simpson(f, m, a=0.0, b=1.0):
@@ -38,7 +38,8 @@ def debug(abs_err_cm, abs_err_ct, abs_err_cs, debug=True):
                       "{:.20f}     ".format(s)
 
 def plot_abs_errs(abs_err_cm, abs_err_ct, abs_err_cs):
-    plt.title("|xc-x| of: The Composite Midpoint, Simpson & Trapezium Methods against h")
+    plt.title("|xc-x| of: The Composite Midpoint, Simpson & \
+              Trapezium Methods against h")
     plt.ylabel("Composite Midpoint vs Composite Simpson vs Composite Trapezium")
     plt.xlabel("Number of Points")
     plt.xscale('linear')

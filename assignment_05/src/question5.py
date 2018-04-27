@@ -17,20 +17,21 @@ def gauss_chebyshev(n=5.0):
     return (pi * (sum([exp(x) for x in X]))) / n
 
 if __name__ == "__main__":
-
     from scipy import (integrate, special)
     from math import (sqrt, exp, cos, pi)
     from gauss import gauss
 
-    exact_integral = integrate.quad(lambda x : exp(x) / sqrt(1 - x**2), -1, 1)[0]
+    exact_integral = integrate.quad(lambda x : exp(x)/sqrt(1-x**2),-1,1)[0]
     gauss_chebyshev, gause_legendre = gauss_chebyshev(), gauss_legendre()
 
     debug = True
     if debug == True:
         print("Debug Mode Status: <ON>")
         print("Exact Integral  = {:.20f}".format(float(exact_integral)))
-        print("Gauss Chebyshev = {:.20f}".format(abs(float(gauss_chebyshev) - float(exact_integral))))
-        print("Gauss Legendre  = {:.20f}".format(abs(float(gause_legendre) - float(exact_integral))))
+        print("Gauss Chebyshev = {:.20f}".format(abs(float(gauss_chebyshev)\
+                                          - float(exact_integral))))
+        print("Gauss Legendre  = {:.20f}".format(abs(float(gause_legendre)\
+                                          - float(exact_integral))))
 else:
     from sys import exit
     exit("USAGE: python question1.py")
