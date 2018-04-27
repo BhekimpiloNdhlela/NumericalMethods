@@ -19,7 +19,6 @@ def composite_simpson(f, m, a=0.0, b=1.0):
     sum = float(f(a) + f(b))
     h   = (b-a) / (2*m)
     oddSum, evenSum = 0.0, 0.0
-
     for i in range(1, m): #evaluating all odd values of n (not first and last)
         oddSum += f(2 * h * i + a)
     sum += oddSum * 2
@@ -38,8 +37,8 @@ def debug(abs_err_cm, abs_err_ct, abs_err_cs, debug=True):
                       "{:.20f}     ".format(s)
 
 def plot_abs_errs(abs_err_cm, abs_err_ct, abs_err_cs):
-    plt.title("|xc-x| of: The Composite Midpoint, Simpson & Trapezium Methods \
-              against h")
+    plt.title("|xc-x| of: The Composite Midpoint, Simpson & Trapezium Methods" \
+              "against h")
     plt.ylabel("Composite Midpoint vs Composite Simpson vs Composite Trapezium")
     plt.xlabel("Number of Points")
     plt.xscale('log')

@@ -50,12 +50,12 @@ def plot_abs_errs(abs_err_cm, abs_err_ct, abs_err_cs):
     plt.legend(bbox_to_anchor=(.95, .9))
     plt.show()
 
-import matplotlib.pyplot as plt
-from math import (exp, pi, sin)
-from scipy import (integrate, special)
-from numpy import (abs, array, linspace)
-
 if __name__ == "__main__":
+    import matplotlib.pyplot as plt
+    from math import (exp, pi, sin)
+    from scipy import (integrate, special)
+    from numpy import (abs, array, linspace)
+
     f = lambda x : exp(sin(2 * pi * x))
     I = integrate.quad(f, 0.0, 1.0)[0]
     M = linspace(3, 19, 5)

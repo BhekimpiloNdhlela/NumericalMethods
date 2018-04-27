@@ -52,12 +52,12 @@ def plot_computed_error(N, abs_err_0, abs_err_1=None, abs_err_2=None):
     plt.xlabel("h = step size)")
     plt.xscale('log'); plt.yscale('log')
     if abs_err_1 == None and abs_err_2 == None:
-        plt.title("Absolute Error of Euler's method with n = 10, 100 1000")
+        plt.title("6(b.) Absolute Error of Euler's method with n = 10, 100 1000")
         plt.plot(N, abs_err_0, 'k-')
         plt.show()
     else:
-        plt.title("Absolute Error of Euler's, Explicit Midpoint and" \
-                  "Explicit Trapezium methods with n = 10, 100 1000")
+        plt.title("(6a.) Absolute Error of Euler's, Explicit Midpoint"\
+                   "and Explicit Trapezium methods with n = 10, 100 1000")
         plt.plot(N, abs_err_0, 'k-', label="Error Euler's Method")
         plt.plot(N, abs_err_1, 'b-', label="Error Explicit Midpoint Method")
         plt.plot(N, abs_err_2, 'r-', label="Error Explicit Trapezium Method")
