@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
     # plot the error for question 6(a.)
     plot_computed_error(N, abs_errors_eulr)
-    # plot the error for question 6(a.) and 6(b.) on the same cartesion plane
+    #plot the error for question 6(a.) and 6(b.) on the same cartesion plane
     plot_computed_error(N, abs_errors_eulr, abs_errors_midp, abs_errors_trap)
 else:
     from sys import exit
