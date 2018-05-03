@@ -42,7 +42,7 @@ def plot_abs_errs(abs_err_cm, abs_err_ct, abs_err_cs):
               Trapezium Methods against h")
     plt.ylabel("Composite Midpoint vs Composite Simpson vs Composite Trapezium")
     plt.xlabel("Number of Points")
-    plt.xscale('linear')
+    plt.xscale('log')
     plt.yscale('log')
     plt.plot(M, abs_err_cm, 'k-', label="Composite Midpoint")
     plt.plot(M, abs_err_ct, 'r-', label="Composite Trapezium")

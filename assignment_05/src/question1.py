@@ -37,7 +37,7 @@ def debug(abs_err_cm, abs_err_ct, abs_err_cs, debug=True):
                       "{:.20f}     ".format(s)
 
 def plot_abs_errs(abs_err_cm, abs_err_ct, abs_err_cs):
-    plt.title("|xc-x| of: The Composite Midpoint, Simpson & Trapezium Methods" \
+    plt.title("|xc-x| of: The Composite Midpoint, Simpson & Trapezium Methods " \
               "against h")
     plt.ylabel("Composite Midpoint vs Composite Simpson vs Composite Trapezium")
     plt.xlabel("Number of Points")

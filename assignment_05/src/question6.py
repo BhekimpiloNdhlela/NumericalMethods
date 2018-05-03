@@ -33,16 +33,20 @@ def explicit_midpoint(f, n, w0, I, G=9.81, C2=1.0/1000.0):
         w[i]  = w[i-1] + h * f(wt[i])
     return abs(w[-1] - I)
 
-def debug_on(errors, N, I, debug_message, debug=False):
-    if debug == False:
-        pass
-    else:
-        print "\n************************************************************"
-        print "Method Used: ", debug_message
+def debug_on(N, err_eulr,err_mdp, err_trap, debug=False):
+    if debug == True:
+        print "*" * 125
         print "The Exact Value I = {:.20f}".format(float(I))
-        for error, n in zip(errors, N):
-            print "@ n = ", n, "the abs_err = {:.20f}".format(error)
-            print "************************************************************"
+        print "*" * 125
+        print "N ", "\t\t\t\t","Euler's Method", "\t\t\t\t\t\t" , "Explicit Midpoint", "\t\t\t\t\t","Explicit Trapezium"
+        print "*" * 125
+        for n, em, emm, etm in zip(N, err_eulr, err_mdp, err_trap):
+            temp = ""
+            if n == 10:
+                temp = "  "
+            elif n == 100:
+                temp = " "
+            print n,"\t\t\t",temp,"{:.20f}".format(em), "\t\t", temp,"{:.20f}".format(emm), "\t\t",temp,"{:.20f}".format(etm)
 
 def plot_computed_error(N, abs_err_0, abs_err_1=None, abs_err_2=None):
     plt.ylabel("n = number of points")
@@ -72,21 +76,17 @@ if __name__ == "__main__":
     N = [10, 100, 1000]
 
     # get absolute error using Euler's meth6od
-    abs_errors_eulr = [question_a(f, n, 0.0, I) for n in N]
-    debug_on(abs_errors_eulr, N, I, "Euler's Method")
+    abs_err_eulr = [question_a(f, n, 0.0, I) for n in N]
+    abs_err_trap = [explicit_trapezium(f, n, 0.0, I) for n in N]
+    abs_err_mdp = [explicit_midpoint(f, n, 0.0, I) for n in N]
 
-    # get absolute error using explicit trapezium method
-    abs_errors_trap = [explicit_trapezium(f, n, 0.0, I) for n in N]
-    debug_on(abs_errors_trap, N, I, "Explicit Trapezium Method")
-
-    # get absolute error using explicit midpoint method
-    abs_errors_midp = [explicit_midpoint(f, n, 0.0, I) for n in N]
-    debug_on(abs_errors_midp, N, I, "Explicit Midpoint Method")
+    # debug or print the acquired values
+    debug_on(N, abs_err_eulr, abs_err_mdp, abs_err_trap, debug=True)
 
     # plot the error for question 6(a.)
-    plot_computed_error(N, abs_errors_eulr)
+    plot_computed_error(N, abs_err_eulr)
     #plot the error for question 6(a.) and 6(b.) on the same cartesion plane
-    plot_computed_error(N, abs_errors_eulr, abs_errors_midp, abs_errors_trap)
+    plot_computed_error(N, abs_err_eulr, abs_err_mdp, abs_err_trap)
 else:
     from sys import exit
     exit("USAGE: python question6.py")
