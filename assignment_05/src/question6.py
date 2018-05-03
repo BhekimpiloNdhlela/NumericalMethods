@@ -8,7 +8,6 @@ since   : Friday-27-04-2018
 """
 
 def question_a(f, n, w0, I, G=9.81, C2=1.0/1000.0):
-    T = linspace(0.0, 10.0, n)
     h = 10.0/float(n) # step size
     w = zeros(n+1, dtype=float)
     w[0] = w0
@@ -17,7 +16,6 @@ def question_a(f, n, w0, I, G=9.81, C2=1.0/1000.0):
     return abs(w[-1] - I)
 
 def explicit_trapezium(f, n, w0, I, G=9.81, C2=1.0/1000.0):
-    T = linspace(0.0, 10.0, n)
     h = 10.0/float(n) # step size
     w, wt = zeros(n+1, dtype=float), zeros(n+1, dtype=float)
     w[0] = w0
@@ -27,7 +25,6 @@ def explicit_trapezium(f, n, w0, I, G=9.81, C2=1.0/1000.0):
     return abs(w[-1] - I)
 
 def explicit_midpoint(f, n, w0, I, G=9.81, C2=1.0/1000.0):
-    T = linspace(0.0, 10.0, n)
     h = 10.0/float(n) # step size
     w, wt = zeros(n+1, dtype=float), zeros(n+1, dtype=float)
     w[0] = w0
