@@ -33,8 +33,7 @@ def plot_abs_errs(abs_err_t, abs_err_m, abs_err_s):
     plt.title("|xc-x| of: The Midpoint, Simpson & Trapezium Methods against h")
     plt.ylabel("Midpoint vs Simpson vs Trapezium")
     plt.xlabel("h")
-    plt.yscale('log')
-    plt.xscale('log')
+    plt.yscale('log'); plt.xscale('log')
     plt.plot([1., .1, .01], abs_err_t, "k-", label="Trapezium")
     plt.plot([1., .1, .01], abs_err_m, "r-", label="Midpoint")
     plt.plot([1., .1, .01], abs_err_s, "g-", label="Simpson")
@@ -54,7 +53,6 @@ if __name__ == "__main__":
 
     debug(abs_err_s, abs_err_m, abs_err_t)
     plot_abs_errs(abs_err_t, abs_err_m, abs_err_s)
-
 else:
     from sys import exit
     exit("USAGE: python q5.py")

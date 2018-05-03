@@ -1,4 +1,4 @@
-    #!/usr/bin/python
+#!/usr/bin/python
 """
 author  : Bhekimpilo Ndhlela
 author  : 18998712
