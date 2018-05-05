@@ -13,7 +13,7 @@ def question_a(f, n, w0, I, G=9.81, C2=1.0/1000.0):
     w[0] = w0
     for i in xrange(1, n+1):
         w[i] = w[i-1] + h * f(w[i-1])
-    return abs(w[-1] - I)
+    return abs_error(w[-1], I)
 
 def explicit_trapezium(f, n, w0, I, G=9.81, C2=1.0/1000.0):
     h = 10.0/float(n) # step size
@@ -22,7 +22,7 @@ def explicit_trapezium(f, n, w0, I, G=9.81, C2=1.0/1000.0):
     for i in xrange(1, n+1):
         wt[i] = w[i-1] + h * f(w[i-1])
         w[i]  = w[i-1] + h * f(wt[i-1] + h/2.0 * f(wt[i]))
-    return abs(w[-1] - I)
+    return abs_error(w[-1], I)
 
 def explicit_midpoint(f, n, w0, I, G=9.81, C2=1.0/1000.0):
     h = 10.0/float(n) # step size
@@ -31,7 +31,7 @@ def explicit_midpoint(f, n, w0, I, G=9.81, C2=1.0/1000.0):
     for i in xrange(1, n+1):
         wt[i] = w[i-1] + 0.5 * h * f(w[i-1])
         w[i]  = w[i-1] + h * f(wt[i])
-    return abs(w[-1] - I)
+    return abs_error(w[-1], I)
 
 def debug_on(N, err_eulr,err_mdp, err_trap, debug=False):
     if debug == True:
@@ -47,6 +47,9 @@ def debug_on(N, err_eulr,err_mdp, err_trap, debug=False):
             elif n == 100:
                 temp = " "
             print n,"\t\t\t",temp,"{:.20f}".format(em), "\t\t", temp,"{:.20f}".format(emm), "\t\t",temp,"{:.20f}".format(etm)
+
+def abs_error(xc, x):
+    return abs(float(xc) - float(x))
 
 def plot_computed_error(N, abs_err_0, abs_err_1=None, abs_err_2=None):
     plt.ylabel("n = number of points")

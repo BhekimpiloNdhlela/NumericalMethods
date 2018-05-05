@@ -16,6 +16,9 @@ def gauss_chebyshev(n=5.0):
     X = [cos(((2.0 * i - 1) * pi) / (2 * n)) for i in xrange(1, int(n + 1))]
     return (pi * (sum([exp(x) for x in X]))) / n
 
+def abs_error(xc, x):
+    return abs(float(xc) - float(x))
+
 if __name__ == "__main__":
     from scipy import (integrate, special)
     from math import (sqrt, exp, cos, pi)
@@ -28,10 +31,8 @@ if __name__ == "__main__":
     if debug == True:
         print("Debug Mode Status: <ON>")
         print("Exact Integral  = {:.20f}".format(float(exact_integral)))
-        print("Gauss Chebyshev = {:.20f}".format(abs(float(gauss_chebyshev)\
-                                          - float(exact_integral))))
-        print("Gauss Legendre  = {:.20f}".format(abs(float(gause_legendre)\
-                                          - float(exact_integral))))
+        print("Gauss Chebyshev = {:.20f}".format(abs_error(gauss_chebyshev, exact_integral)))
+        print("Gauss Legendre  = {:.20f}".format(abs_error(gause_legendre, exact_integral)))
 else:
     from sys import exit
     exit("USAGE: python question1.py")
