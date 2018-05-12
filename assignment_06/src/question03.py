@@ -53,10 +53,12 @@ if __name__ == "__main__":
     I       = lambda t   : 4.0*exp(0.5*(1-((t)**2.0)))
     abs_err = lambda xc  : abs(xc - I(2.0))
     H       = [0.01, 0.005, 0.0025, 0]
+
     two_step_abs_err   = [abs_err(adam_bashforth_two_step(f, h)) for h in H]
-    # ploting the solution functios
     multi_step_abs_err = [abs_err(adam_bashforth_mul_step(f, h)) for h in H]
+
     debug(two_step_abs_err, multi_step_abs_err, debug_status=True)
+    
     plot_solution_functions(MULTI_STEP_SOLUTIONS, linspace(1, 2, 100))
     plot_solution_functions(TWO_STEP_SOLUTIONS, linspace(1, 2, 100))
 else:
