@@ -5,8 +5,11 @@ def adam_bashforth_two_step(f, h, n=100.0, T=(1.0, 2.0), w0=4.0):
     t    = linspace(T[0], T[1], int(n))
     W[0] = w0
     W[1] = W[0] + h * f(t[1], W[0])    # w[1] evaluated by euler's method
+
     for i, j in zip(range(1, int(n - 1)), range(2, int(n))):
         W[i + 1] = wn(W[i], W[i-1], t[j], t[j-1])
+
+    # Update global Variables befor returning
     global TWO_STEP_SOLUTIONS
     TWO_STEP_SOLUTIONS.append(W)
     return W[-1]
@@ -19,6 +22,8 @@ def adam_bashforth_mul_step(f, h, n=100.0, T=(1.0, 2.0), w0=4.0):
     W[1] = W[0] + h * f(t[1], W[0])    # w[1] evaluated by euler's method
     for i, j in zip(range(1, int(n - 1)), range(2, int(n))):
         W[i + 1] = wn(W[i], W[i-1], t[j], t[j-1])
+
+    # Update global Variables befor returning
     global MULTI_STEP_SOLUTIONS
     MULTI_STEP_SOLUTIONS.append(W)
     return W[-1]
@@ -42,6 +47,7 @@ def debug(abs_err_2, abs_err_m, debug_status=True):
         for step_2, step_m in zip(abs_err_2, abs_err_m):
             print("{:.20f}".format(step_2) + "\t\t " + "{:.20f}".format(step_m))
 
+# Global Variables
 MULTI_STEP_SOLUTIONS = []
 TWO_STEP_SOLUTIONS = []
 
@@ -58,7 +64,7 @@ if __name__ == "__main__":
     multi_step_abs_err = [abs_err(adam_bashforth_mul_step(f, h)) for h in H]
 
     debug(two_step_abs_err, multi_step_abs_err, debug_status=True)
-    
+
     plot_solution_functions(MULTI_STEP_SOLUTIONS, linspace(1, 2, 100))
     plot_solution_functions(TWO_STEP_SOLUTIONS, linspace(1, 2, 100))
 else:
