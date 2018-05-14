@@ -57,15 +57,16 @@ if __name__ == "__main__":
     I       = 4.0*exp(0.5*(1-((2.0)**2.0)))
     abs_err = lambda xc  : abs(xc - I)
     H       = [0.01, 0.005, 0.0025, 0]
+    N       = 100
 
-    two_step_abs_err   = [abs_err(adam_bashforth_two_step(f, h)) for h in H]
-    multi_step_abs_err = [abs_err(adam_bashforth_mul_step(f, h)) for h in H]
+    two_step_abs_err   = [abs_err(adam_bashforth_two_step(f, h, n=N)) for h in H]
+    multi_step_abs_err = [abs_err(adam_bashforth_mul_step(f, h, n=N)) for h in H]
     debug(two_step_abs_err, multi_step_abs_err, debug_status=True)
 
     m_status0 = "Adam Bashforth Two Step Method"
     m_status1 = "Adam Bashforth Multi Step Method"
-    plot_solution_functions(TWO_STEP_SOLUTIONS, linspace(1, 2, 20), m_status0)
-    plot_solution_functions(MULTI_STEP_SOLUTIONS, linspace(1, 2, 20), m_status1)
+    plot_solution_functions(TWO_STEP_SOLUTIONS, linspace(1, 2, N), m_status0)
+    plot_solution_functions(MULTI_STEP_SOLUTIONS, linspace(1, 2, N), m_status1)
 else:
     from sys import exit
     exit("USAGE: question3.py")
