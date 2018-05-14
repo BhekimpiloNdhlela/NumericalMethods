@@ -57,7 +57,7 @@ if __name__ == "__main__":
     I       = 4.0*exp(0.5*(1-((2.0)**2.0)))
     abs_err = lambda xc  : abs(xc - I)
     H       = [0.01, 0.005, 0.0025, 0]
-    N       = 100
+    N       = 20
 
     two_step_abs_err   = [abs_err(adam_bashforth_two_step(f, h, n=N)) for h in H]
     multi_step_abs_err = [abs_err(adam_bashforth_mul_step(f, h, n=N)) for h in H]

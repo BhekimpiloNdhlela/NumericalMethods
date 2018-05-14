@@ -122,7 +122,7 @@ def plot_funcs(tt, yy):
     plt.show()
 
 if __name__ == "__main__":
-    t_interval = [0, 2.0/0.001]
-    f = lambda t, y: y**2 - y**3
-    tt_a, yy_a = ode23(f, t_interval, y0=0.0)
-    tt_b, yy_b = ode45(f, t_interval, y0=0.0)
+    # making use of ODE23
+    tt_a, yy_a = ode23(lambda t, y: y**2 - y**3, [0, 2.0/0.001], y0=0.001)
+    # making use of ODE45
+    tt_b, yy_b = ode45(lambda t, y: y**2 - y**3, [0, 2.0/0.001], y0=0.001)
