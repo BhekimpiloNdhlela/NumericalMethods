@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-def adam_bashforth_two_step(f, n, t=[1.0, 2.0], w0=4.0):
+def adam_bashforth_two_step(f, n, t=[.0, 2.0], w0=4.0):
     W    = zeros((int(n),), dtype=float)
     t    = linspace(t[0], t[1], int(n))
     h    = 1 / float(n)
@@ -16,7 +16,7 @@ def adam_bashforth_two_step(f, n, t=[1.0, 2.0], w0=4.0):
     print "Actual Value: @ h = ", h, "\tW[-1] = ", W[-1]
     return W[-1]
 
-def adam_bashforth_mul_step(f, n, t=(1.0, 2.0), w0=4.0):
+def adam_bashforth_mul_step(f, n, t=(.0, 2.0), w0=4.0):
     wn   = lambda w0, w1, t0, t1 : -4.0*w0 + 5.0*w1 + h*(4*f(t0, w0) + 2*f(t1, w1))
     W    = zeros((int(n),), dtype=float)
     t    = linspace(t[0], t[1], int(n))
