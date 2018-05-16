@@ -1,17 +1,18 @@
 #!/usr/bin/python3
-def adam_bashforth_two_step(f, h, n=100, T=(1.0, 2.0), w0=4.0):
-    wn   = lambda w0, w1, t0, t1 : w0 + (0.5*h)*(3*f(t0, w0) - f(t1, w1))
+def adam_bashforth_two_step(f, h, n=100, t=[1.0, 2.0], w0=4.0):
     W    = zeros((int(n),), dtype=float)
-    t    = linspace(T[0], T[1], int(n))
+    t    = linspace(t[0], t[1], int(n))
     W[0] = w0
+    W[1] = W[0] + h * f(1.0, W[0])    # w[1] evaluated by euler's method
 
-    W[1] = W[0] + h * f(t[0], W[0])    # w[1] evaluated by euler's method
-    t = 1 + h
     for i, j in zip(range(1, int(n - 1)), range(2, int(n))):
-        W[i + 1] = wn(W[i], W[i-1], t[j], t[j-1])
+        W[i+1] = W[i] + (0.5*h)*(3*f(t[j], W[i]) - f(t[j-1], W[i-1]))
+
     # Update global Variables befor returning
     global TWO_STEP_SOLUTIONS
     TWO_STEP_SOLUTIONS.append(W)
+
+    print "Actual Value: @ h = ", h, "\tW[-1] = ", W[-1]
     return W[-1]
 
 def adam_bashforth_mul_step(f, h, n=100, T=(1.0, 2.0), w0=4.0):
@@ -20,10 +21,12 @@ def adam_bashforth_mul_step(f, h, n=100, T=(1.0, 2.0), w0=4.0):
     t    = linspace(T[0], T[1], int(n))
     W[0] = w0
     W[1] = W[0] + h * f(t[1], W[0])    # w[1] evaluated by euler's method
-    for i, j in zip(range(1, int(n)), range(2, int(n))):
-        W[i + 1] = wn(W[i], W[i-1], t[j], t[j-1])
-    # Update global Variables befor returning
 
+    for i, j in zip(range(1, int(n)), range(2, int(n))):
+        W[i+1] = -4.0*W[i] + 5.0*W[i-1] + h*(4*f(t[j], W[i]) + 2*f(t[j-1], W[i-1]))
+
+    print t[j]
+    # Update global Variables befor returning
     global MULTI_STEP_SOLUTIONS
     MULTI_STEP_SOLUTIONS.append(W)
     #print "h = ", h, "W[-i]", W[-1]
@@ -53,7 +56,7 @@ MULTI_STEP_SOLUTIONS = []
 TWO_STEP_SOLUTIONS = []
 
 if __name__ == "__main__":
-    from numpy import exp, zeros, linspace
+    from numpy import exp, zeros, linspace, arange
     import matplotlib.pyplot as plt
 
     f       = lambda t, y : -t * y
@@ -62,6 +65,8 @@ if __name__ == "__main__":
     H       = [0.01, 0.005, 0.0025]
     N       = 100
     print "I = ", I
+
+    #print help(arange)
 
     two_step_abs_err   = [abs_err(adam_bashforth_two_step(f, h, n=N)) for h in H]
     multi_step_abs_err = [abs_err(adam_bashforth_mul_step(f, h, n=N)) for h in H]
