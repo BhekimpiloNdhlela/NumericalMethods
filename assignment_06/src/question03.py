@@ -1,79 +1,74 @@
 #!/usr/bin/python3
-def adam_bashforth_two_step(f, n, t=[1.0, 2.0], w0=4.0):
+def adam_bashforth_two_step(f, n, h, t=[1.0, 2.0], w0=4.0):
     W    = zeros((int(n),), dtype=float)
     t    = linspace(t[0], t[1], int(n))
-    h    = 1 / float(n)
-
     W[0] = w0
     W[1] = W[0] + h * f(t[0], W[0])    # w[1] evaluated by euler's method
-
     for i in range(1, int(n - 1)):
         W[i+1] = W[i] + (0.5*h)*(3*f(t[i], W[i]) - f(t[i-1], W[i-1]))
-
-    # Update global Variables befor returning
-    global TWO_STEP_SOLUTIONS
-    TWO_STEP_SOLUTIONS.append(W)
-
-    print "Actual Value: @ h = ", h, "\tW[-1] = ", W[-1]
     return W[-1]
 
-def adam_bashforth_mul_step(f, n, t=(1., 2.0), w0=4.0):
+def adam_bashforth_mul_step(f, n, h, t=(1., 2.0), w0=4.0):
     wn   = lambda w0, w1, t0, t1 : -4.0*w0 + 5.0*w1 + h*(4*f(t0, w0) + 2*f(t1, w1))
     W    = zeros((int(n),), dtype=float)
     t    = linspace(t[0], t[1], int(n))
-    h    = 1 / float(n)
     W[0] = w0
     W[1] = W[0] + h * f(t[1], W[0])    # w[1] evaluated by euler's method
-
     for i in range(1, int(n - 1)):
         W[i+1] = -4.0*W[i] + 5.0*W[i-1] + h*(4*f(t[i], W[i]) + 2*f(t[i-1], W[i-1]))
-
-    # Update global Variables befor returning
-    global MULTI_STEP_SOLUTIONS
     MULTI_STEP_SOLUTIONS.append(W)
-    print "Actual Value: @ h = ", h, "\tW[-1] = ", W[-1]
     return W[-1]
 
 def plot_solution_function():
-    I =  lambda t: 4.0*exp(0.5*(1-((t)**2.0)))
-    x = linspace(1, 2, 200)
-    y = I(x)
-    plt.title("")
-    plt.ylabel("y = 4.0*exp(0.5*(1-((t)**2.0)))")
-    plt.xlabel("time = t)")
+    x2 = linspace(1, 2, len(MULTI_STEP_SOLUTIONS[0]))
+    plt.subplot(211)
+    plt.title("The Approximation of\n dy/dt = -ty by Adam BashForth Multi-Step\nn = 100, h = 0.01")
+    plt.ylabel("[LINEAR] Approximation of dy/dt = -ty")
     plt.xlim([1, 2])
-    plt.plot(x, y, 'c-', linewidth=3)
+    plt.plot(x2, MULTI_STEP_SOLUTIONS[0], 'k-', lw=5, label="h = 0.0025")
+
+    plt.subplot(212)
+    plt.xlim([1, 2])
+    plt.ylabel("[LOG] Approximation of dy/dt = -ty")
+    plt.xlabel("time = t")
+    plt.yscale('log')
+    plt.plot(x2, MULTI_STEP_SOLUTIONS[0], 'k-', lw=5, label="h = 0.0025")
     plt.show()
 
-def debug(abs_err_2, abs_err_m, debug_status=True):
+def debug(H, N, AE, W, message, debug_status=True):
     if debug_status == True:
-        print("Absolute Errors:")
-        print("Adam Bashforth Two Steps\tAdam Bashforth Multi Steps")
-        for step_2, step_m in zip(abs_err_2, abs_err_m):
-            print("{:.20f}".format(step_2) + "\t\t " + "{:.2f}".format(step_m))
+        if(message == "2_Step"):
+            print("Adam BashForth Two(2) Step Algorithm")
+            print("H \t N  \t\tAbs_Err \t W[-1] approx @ t=2")
+            for h, n, ae, w in zip(H, N, AE, W):
+                print n, "\t{:.4f}\t".format(h), "\t{:.15f}".format(ae), "\t{:.15f}".format(w)
+        elif message == "M_Step":
+            print("Adam BashForth Multi Step Algorithm")
+            print("H \t N  \t\tAbs_Err \t W[-1] approx @ t=2")
+            for h, n, ae, w in zip(H, N, AE, W):
+                print n, "  {:.4f}  ".format(h), "  {:15E}".format(ae), "  {:15E}".format(w)
 
-# Global Variables
+# Global Variable
 MULTI_STEP_SOLUTIONS = []
-TWO_STEP_SOLUTIONS = []
-
 if __name__ == "__main__":
-    from numpy import exp, zeros, linspace, arange
+    from numpy import exp, zeros, linspace, arange, shape
     import matplotlib.pyplot as plt
 
     f       = lambda t, y : -t * y
-    I       =  4.0*exp(0.5*(1-((2)**2.0)))
-    abs_err = lambda xc   : abs(xc - I)
+    I       = 4.0*exp(0.5*(1-((2)**2.0)))
     N       = [100.0, 200.0, 400.0]
-    print "I = ", I
-    two_step_abs_err   = [abs_err(adam_bashforth_two_step(f, n)) for n in N]
+    H       = [1/ N[0], 1/N[1], 1/N[2]]
 
+    # do for the Adam Bashforth two step Method
+    w_ad2s  = [adam_bashforth_two_step(f, n, h) for n, h in zip(N, H)]
+    ae_ad2s = [abs(w - I) for w in w_ad2s]
+    debug(H, N, ae_ad2s, w_ad2s, "2_Step")
 
-    print("\n")
-    multi_step_abs_err = [abs_err(adam_bashforth_mul_step(f, n)) for n in N]
-    for n, err in zip(N, two_step_abs_err):
-        print "@ N = ", n,"\t\t{:.10f}".format(err)
-    #debug(two_step_abs_err, multi_step_abs_err, debug_status=True)
-    #plot_solution_function()
+    # do for the Adam Bashforth Multi step Method
+    w_adms  = [adam_bashforth_mul_step(f, n, h) for n, h in zip(N, H)]
+    ae_adms = [abs(w - I) for w in w_adms]
+    debug(H, N, ae_adms, w_adms, "M_Step")
+    plot_solution_function()
 else:
     from sys import exit
     exit("USAGE: question3.py")

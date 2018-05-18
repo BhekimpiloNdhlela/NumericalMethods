@@ -119,10 +119,8 @@ def ode23(f, tspan, y0, tol=1e-6):
             tt = np.hstack((tt, t));
             # Successful step. Set flag to happy.
             flag = 0;
-
         # Choose next step (ensure we finish at the end of the interval!)
         h = min(hnew, tend - t);
-
     # Transpose for convenience
     tt = tt.T
     yy = yy.T
@@ -131,15 +129,15 @@ def ode23(f, tspan, y0, tol=1e-6):
 def plot_functions(tt, yy):
     # Plot first component of solution
     plt.subplot(211)
-    plt.plot(tt, yy)
+    plt.plot(tt, yy, 'm-', lw=4.0)
     plt.title('First component of solution')
     # Plot time steps as a function of time
     dtt = tt[2:-1] - tt[1:-2]
     plt.subplot(212)
-    plt.plot(tt[2:-1], dtt)
+    plt.plot(tt[2:-1], dtt, 'c-', lw=4.0)
     plt.yscale('log')
     plt.ylabel('Time steps')
-    plt.title('No. of time steps = %s'%np.size(tt))
+    plt.title('No. of time steps = %s'%(np.size(tt)-1))
     plt.show()
 
 if __name__ == "__main__":
@@ -149,8 +147,8 @@ if __name__ == "__main__":
 
     # making use of ODE23
     tt, yy = ode23(lambda t, y: y**2 - y**3, [0, 2.0/0.001], y0=0.001)
-    plot_function(tt, yy)
+    plot_functions(tt, yy)
 
     # making use of ODE45
     tt, yy = ode45(lambda t, y: y**2 - y**3, [0, 2.0/0.001], y0=0.001)
-    plot_function(tt, yy)
+    plot_functions(tt, yy)
