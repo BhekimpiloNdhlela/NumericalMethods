@@ -1,13 +1,14 @@
 #!/usr/bin/python3
-def adam_bashforth_two_step(f, n, t=[.0, 2.0], w0=4.0):
+def adam_bashforth_two_step(f, n, t=[1.0, 2.0], w0=4.0):
     W    = zeros((int(n),), dtype=float)
     t    = linspace(t[0], t[1], int(n))
     h    = 1 / float(n)
-    W[0] = w0
-    W[1] = W[0] + h * f(t[1], W[0])    # w[1] evaluated by euler's method
 
-    for i, j in zip(range(1, int(n - 1)), range(2, int(n))):
-        W[i+1] = W[i] + (0.5*h)*(3*f(t[j], W[i]) - f(t[j-1], W[i-1]))
+    W[0] = w0
+    W[1] = W[0] + h * f(t[0], W[0])    # w[1] evaluated by euler's method
+
+    for i in range(1, int(n - 1)):
+        W[i+1] = W[i] + (0.5*h)*(3*f(t[i], W[i]) - f(t[i-1], W[i-1]))
 
     # Update global Variables befor returning
     global TWO_STEP_SOLUTIONS
@@ -16,7 +17,7 @@ def adam_bashforth_two_step(f, n, t=[.0, 2.0], w0=4.0):
     print "Actual Value: @ h = ", h, "\tW[-1] = ", W[-1]
     return W[-1]
 
-def adam_bashforth_mul_step(f, n, t=(.0, 2.0), w0=4.0):
+def adam_bashforth_mul_step(f, n, t=(1., 2.0), w0=4.0):
     wn   = lambda w0, w1, t0, t1 : -4.0*w0 + 5.0*w1 + h*(4*f(t0, w0) + 2*f(t1, w1))
     W    = zeros((int(n),), dtype=float)
     t    = linspace(t[0], t[1], int(n))
@@ -24,8 +25,8 @@ def adam_bashforth_mul_step(f, n, t=(.0, 2.0), w0=4.0):
     W[0] = w0
     W[1] = W[0] + h * f(t[1], W[0])    # w[1] evaluated by euler's method
 
-    for i, j in zip(range(1, int(n)), range(2, int(n))):
-        W[i+1] = -4.0*W[i] + 5.0*W[i-1] + h*(4*f(t[j], W[i]) + 2*f(t[j-1], W[i-1]))
+    for i in range(1, int(n - 1)):
+        W[i+1] = -4.0*W[i] + 5.0*W[i-1] + h*(4*f(t[i], W[i]) + 2*f(t[i-1], W[i-1]))
 
     # Update global Variables befor returning
     global MULTI_STEP_SOLUTIONS
@@ -72,7 +73,7 @@ if __name__ == "__main__":
     for n, err in zip(N, two_step_abs_err):
         print "@ N = ", n,"\t\t{:.10f}".format(err)
     #debug(two_step_abs_err, multi_step_abs_err, debug_status=True)
-    plot_solution_function()
+    #plot_solution_function()
 else:
     from sys import exit
     exit("USAGE: question3.py")
