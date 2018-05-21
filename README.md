@@ -1,1 +1,1 @@
-# Applied Mathematics TW324 Numerical Analysis/ Numerical Methods
+# Applied Mathematics TW324 Numerical Analysis or Methods
